@@ -48,5 +48,32 @@
                 "Courses": {}
             }
         }
+    },
+    "sergio": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-admin-sergio-232015-authRole",
+            "UnauthRoleArn": "arn:aws:iam::104349172281:role/amplify-admin-sergio-232015-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::104349172281:role/amplify-admin-sergio-232015-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-admin-sergio-232015-deployment",
+            "UnauthRoleName": "amplify-admin-sergio-232015-unauthRole",
+            "StackName": "amplify-admin-sergio-232015",
+            "StackId": "arn:aws:cloudformation:us-east-1:104349172281:stack/amplify-admin-sergio-232015/083b8790-0f54-11ea-9d42-0a254e00bc9f"
+        },
+        "categories": {
+            "auth": {
+                "userPoolGroups": {},
+                "CyberchessAuth": {}
+            },
+            "function": {
+                "CyberchessAuthPostConfirmation": {},
+                "AdminQueriesacd20eba": {},
+                "courses": {},
+                "subscriptions": {},
+                "Profiles": {},
+                "CyberchessAuth": {},
+                "Courses": {}
+            }
+        }
     }
 }
