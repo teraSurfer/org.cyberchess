@@ -12,12 +12,40 @@
         },
         "categories": {
             "function": {
-                "CyberchessAuthPostConfirmation": {
-                    "GROUP": "Users"
-                }
+                "CyberchessAuthPostConfirmation": {},
+                "AdminQueriesacd20eba": {},
+                "courses": {},
+                "subscriptions": {}
             },
             "auth": {
                 "CyberchessAuth": {}
+            }
+        }
+    },
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-admin-prod-205413-authRole",
+            "UnauthRoleArn": "arn:aws:iam::104349172281:role/amplify-admin-prod-205413-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::104349172281:role/amplify-admin-prod-205413-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-admin-prod-205413-deployment",
+            "UnauthRoleName": "amplify-admin-prod-205413-unauthRole",
+            "StackName": "amplify-admin-prod-205413",
+            "StackId": "arn:aws:cloudformation:us-east-1:104349172281:stack/amplify-admin-prod-205413/9fd4a150-0f3f-11ea-89d0-126c5203d2c8"
+        },
+        "categories": {
+            "auth": {
+                "userPoolGroups": {},
+                "CyberchessAuth": {}
+            },
+            "function": {
+                "CyberchessAuthPostConfirmation": {},
+                "AdminQueriesacd20eba": {},
+                "courses": {},
+                "subscriptions": {},
+                "Profiles": {},
+                "CyberchessAuth": {},
+                "Courses": {}
             }
         }
     }
