@@ -42,6 +42,7 @@ export default {
     }
   },
   async created() {
+    this.loadBaseUrl()
     this.loadCourses()
   },
   methods: {
@@ -59,6 +60,7 @@ export default {
           re = re.map(async val => {
             const thumbUrl = await this.$Amplify.Storage.get(val.thumbnail.key, {level: (val.isListed) ? 'protected' : 'private'})
             val.thumbnail.key = thumbUrl.split('https://'+this.$Amplify.Storage._config.AWSS3.bucket+'.s3.amazonaws.com').join(this.baseUrl)
+            console.log(val)
             return val;
           })
         Promise.allSettled(re).then(res => res.forEach(element => {
@@ -68,6 +70,14 @@ export default {
       } catch(err) {
           console.log(err)
       }
+    },
+    loadBaseUrl() {
+      const urls = {
+        dev: 'https://d15qyykdkts3kc.cloudfront.net'
+      }
+      let bucketName = this.$Amplify.Storage._config.AWSS3.bucket;
+      let env = bucketName.split('-');
+      this.baseUrl = urls[env[env.length-1]]
     }
   }
 };
