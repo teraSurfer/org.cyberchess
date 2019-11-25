@@ -19,6 +19,7 @@ const AWS = require('aws-sdk')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 var bodyParser = require('body-parser')
 var express = require('express')
+const uuidV4 = require('uuid/v4')
 
 AWS.config.update({ region: process.env.TABLE_REGION });
 
@@ -35,7 +36,7 @@ const partitionKeyType = "S";
 const sortKeyName = "";
 const sortKeyType = "";
 const hasSortKey = sortKeyName !== "";
-const path = "/items";
+const path = "/subscriptions";
 const UNAUTH = 'UNAUTH';
 const hashKeyPath = '/:' + partitionKeyName;
 const sortKeyPath = hasSortKey ? '/:' + sortKeyName : '';
@@ -177,9 +178,13 @@ app.post(path, function(req, res) {
     req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
 
+  let i = {
+    subscription_id: uuidV4(),
+    ...req.body
+  }
   let putItemParams = {
     TableName: tableName,
-    Item: req.body
+    Item: i
   }
   dynamodb.put(putItemParams, (err, data) => {
     if(err) {
@@ -217,16 +222,24 @@ app.delete(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
     }
   }
 
-  let removeItemParams = {
+  let deleteParams = {
     TableName: tableName,
+    ExpressionAttributeNames: {
+      "#AT": "is_deleted",
+     }, 
+     ExpressionAttributeValues: {
+      ":t": true
+     },
+    UpdateExpression: "SET #AT = :t",
     Key: params
   }
-  dynamodb.delete(removeItemParams, (err, data)=> {
+
+  dynamodb.update(deleteParams, function(err, data) {
     if(err) {
       res.statusCode = 500;
-      res.json({error: err, url: req.url});
-    } else {
-      res.json({url: req.url, data: data});
+      res.json({error: err, url: req.url, body: req.body});
+    } else{
+      res.json({success: '(update) delete call succeed!', url: req.url, data: data})
     }
   });
 });
