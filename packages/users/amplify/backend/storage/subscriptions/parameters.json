@@ -1,0 +1,5 @@
+{
+    "tableName": "subscriptions",
+    "partitionKeyName": "subscription_id",
+    "partitionKeyType": "S"
+}

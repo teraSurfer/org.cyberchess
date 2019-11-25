@@ -1,0 +1,27 @@
+{
+  "name": "cyberchess.org",
+  "private": true,
+  "description": "Cyberchess project",
+  "contributors": [
+    {
+      "name": "Achalaesh Lanka",
+      "email": "me@terasurfer.com"
+    },
+    {
+      "name": "Sergio Aguilar Camarena",
+      "email": "sergio.aguilarcamarena@sjsu.edu"
+    },
+    {
+      "name": "Jyothi Ramesh",
+      "email": "fnu.jyothihassanramesh@sjsu.edu"
+    },
+    {
+      "name": "Roger Navarro",
+      "email": "roger.navarro@sjsu.edu"
+    }
+  ],
+  "devDependencies": {
+    "lerna": "^3.18.3",
+    "husky": "^3.0.9"
+  }
+}
