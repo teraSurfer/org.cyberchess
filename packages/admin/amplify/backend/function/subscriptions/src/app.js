@@ -29,13 +29,18 @@ if(process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + '-' + process.env.ENV;
 }
 
+let table2Name = "Courses";
+if(process.env.ENV && process.env.ENV !== "NONE") {
+  table2Name = table2Name + '-' + process.env.ENV;
+}
+
 const userIdPresent = false; // TODO: update in case is required to use that definition
 const partitionKeyName = "subscription_id";
 const partitionKeyType = "S";
 const sortKeyName = "";
 const sortKeyType = "";
 const hasSortKey = sortKeyName !== "";
-const path = "/items";
+const path = "/subscriptions";
 const UNAUTH = 'UNAUTH';
 const hashKeyPath = '/:' + partitionKeyName;
 const sortKeyPath = hasSortKey ? '/:' + sortKeyName : '';
@@ -61,10 +66,123 @@ const convertUrlType = (param, type) => {
   }
 }
 
-/********************************
- * HTTP Get method for list objects *
- ********************************/
 
+/**************************************
+ * test APIGateway access  Test       *
+ *************************************/
+app.get(path, function(req, res) {
+  res.statusCode = 200;
+  res.json({msg: 'res from custom function'});
+})
+
+
+/******************************************************
+ * HTTP Get method for list objects by scan profileId  *
+ ******************************************************/
+app.get(path + '/profile_id/:id'  , function(req, res) {
+  console.log("here-1-->profileid")
+ console.log(req.params.id)
+ let queryParams = {
+   TableName: tableName,
+   ProjectionExpression: "#CID, #P, #I, #L",  
+   FilterExpression: "#P = :profile_id",
+   ExpressionAttributeNames: {
+     "#CID": "subscription_id",
+     "#P": "profile_id",
+     "#I": "course_id",
+     "#L": "isDeleted",
+   },
+   ExpressionAttributeValues: {
+     ":profile_id": req.params.id
+   }
+ }
+
+ //del  var data1 = []
+  dynamodb.scan(queryParams, (err, data) => {
+   if (err) {
+     res.statusCode = 500;
+     res.json({error: 'Could not load items: ' + err});
+   } else {
+
+     console.log('here-2-->data1.Items')
+     console.log (data.Items);
+     console.log("here-3-->data.Items[0].course_id");
+     console.log(data.Items[0].course_id);
+     console.log('here-4-->table suscription')
+     console.log(tableName)
+        
+     let query2Params = {
+       TableName: table2Name,
+       ProjectionExpression: "#N, #T, #L, #CID, #I",
+       FilterExpression: "#CID = :course_id",
+       ExpressionAttributeNames: {
+        "#I": "instructor",
+        "#CID": "course_id",
+        "#L": "isListed",
+        "#T": "thumbnail",
+        "#N": "name"
+       },
+       ExpressionAttributeValues: {
+         ":course_id": data.Items[0].course_id
+       }
+     } 
+    
+     console.log('here-5-->before 2nd query')
+     dynamodb.scan(query2Params, (err, data2) => {
+       if(err) {
+         res.statusCode = 500;
+         res.json({error: 'Could not load items: ' + err});
+       } else {
+         console.log('here-6--->data2.Items')
+         console.log(data2.Items)
+         res.json({d1:data.Items, d2: data2.Items});
+       }
+     })
+
+    //  res.json(data.Items); 
+
+   }    
+  });
+ });
+
+
+/******************************************************
+ * HTTP Get method for list objects by scan courseId  *
+ ******************************************************/
+app.get(path + '/course_id/:id'  , function(req, res) {
+  // console.log("here!!")
+  console.log(req.params.id)
+  let queryParams = {
+    TableName: tableName,
+    ProjectionExpression: "#CID, #P, #I, #L",  
+    FilterExpression: "#I = :course_id",
+    ExpressionAttributeNames: {
+        "#CID": "subscription_id",
+        "#P": "profile_id",
+        "#I": "course_id",
+        "#L": "isDeleted",
+    },
+    ExpressionAttributeValues: {
+      ":course_id": req.params.id
+    }
+  }
+
+  dynamodb.scan(queryParams, (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.json({error: 'Could not load items: ' + err});
+    } else {
+      res.json(data.Items); 
+    }
+  });
+  
+});
+
+
+
+/**********************************************
+ * HTTP Get method for list objects by query *
+ *********************************************/
 app.get(path + hashKeyPath, function(req, res) {
   var condition = {}
   condition[partitionKeyName] = {
@@ -97,10 +215,11 @@ app.get(path + hashKeyPath, function(req, res) {
   });
 });
 
-/*****************************************
- * HTTP Get method for get single object *
- *****************************************/
 
+
+/**************************************************
+ * HTTP Get method for get single object by Query *
+ *************************************************/
 app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
   var params = {};
   if (userIdPresent && req.apiGateway) {
