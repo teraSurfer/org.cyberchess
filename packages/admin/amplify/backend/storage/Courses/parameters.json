@@ -1,0 +1,5 @@
+{
+    "tableName": "Courses",
+    "partitionKeyName": "course_id",
+    "partitionKeyType": "S"
+}

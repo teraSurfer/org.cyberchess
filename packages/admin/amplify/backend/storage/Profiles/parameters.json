@@ -1,0 +1,5 @@
+{
+    "tableName": "Profiles",
+    "partitionKeyName": "user_id",
+    "partitionKeyType": "S"
+}

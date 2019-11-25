@@ -1,0 +1,12 @@
+{
+    "permissions": {
+        "storage": {
+            "Courses": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}

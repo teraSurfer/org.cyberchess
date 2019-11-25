@@ -1,0 +1,24 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-admin-dev-180336-authRole",
+            "UnauthRoleArn": "arn:aws:iam::104349172281:role/amplify-admin-dev-180336-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::104349172281:role/amplify-admin-dev-180336-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-admin-dev-180336-deployment",
+            "UnauthRoleName": "amplify-admin-dev-180336-unauthRole",
+            "StackName": "amplify-admin-dev-180336",
+            "StackId": "arn:aws:cloudformation:us-east-1:104349172281:stack/amplify-admin-dev-180336/ca6cf1a0-0f27-11ea-8391-0afe492705d7"
+        },
+        "categories": {
+            "function": {
+                "CyberchessAuthPostConfirmation": {
+                    "GROUP": "Users"
+                }
+            },
+            "auth": {
+                "CyberchessAuth": {}
+            }
+        }
+    }
+}

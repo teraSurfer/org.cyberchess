@@ -1,0 +1,99 @@
+{
+    "paths": [
+        {
+            "name": "/courses",
+            "lambdaFunction": "courses",
+            "privacy": {
+                "userPoolGroups": {
+                    "Admin": [
+                        "/POST",
+                        "/GET",
+                        "/PUT",
+                        "/PATCH",
+                        "/DELETE"
+                    ],
+                    "Users": [
+                        "/GET"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "/subscriptions",
+            "lambdaFunction": "subscriptions",
+            "privacy": {
+                "userPoolGroups": {
+                    "Admin": [
+                        "/GET",
+                        "/PUT",
+                        "/PATCH"
+                    ],
+                    "Users": [
+                        "/POST",
+                        "/GET",
+                        "/PUT",
+                        "/PATCH",
+                        "/DELETE"
+                    ]
+                }
+            }
+        }
+    ],
+    "resourceName": "CyberChessApi",
+    "apiName": "CyberChessApi",
+    "authResourceName": "CyberchessAuth",
+    "functionArns": [
+        {
+            "lambdaFunction": "courses"
+        },
+        {
+            "lambdaFunction": "subscriptions"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-admin-dev-180336-authRole",
+        "unAuthRoleName": "amplify-admin-dev-180336-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "courses",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "CyberchessAuth",
+            "attributes": [
+                "UserPoolId"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "AdminGroupRole"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "UsersGroupRole"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "subscriptions",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "c91fca77"
+}
