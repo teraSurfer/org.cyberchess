@@ -1,10 +1,9 @@
 <template>
     <v-container class="user-subscription mt-1 pl-1 pr-1">
       <p p class="font-weight-bold display-1 text-justify"> Subscription </p>
-      <v-btn :loading="isSubscribed" 
+      <v-btn :loading="isSubscribing" 
          value="Subscribe" 
-         class="ml-2" 
-         v-on="on" 
+         class="ml-2"  
          color="success" 
          type="submit" 
          @click="subscribe">
@@ -17,25 +16,26 @@
 import swal from "sweetalert";
 export default {
    data: () => ({
-      isSubscribed: false,
+      isSubscribing: false,
       loading: false
    }),
    methods: {
-      test() {
-        console.log('tita');
-      },
       async subscribe() {
-         console.log("⚽️");
          try {
+            this.isSubscribing = true;
             let subscription = {};
-            subscription.profile_id = "210983092";
+            subscription.profile_id = await this.$Amplify.Auth.currentSession();
+            subscription.profile_id = subscription.profile_id.idToken.payload.sub;
             subscription.course_id = "2938409234";
             subscription.is_deleted = false;
-            await this.$Amplify.API.post("CyberChessApi", "/subscriptions", {
+            const result = await this.$Amplify.API.post("CyberChessApi", "/subscriptions", {
                body: { ...subscription }
             });
-            this.isSubscribed = true;
+            console.log("Subscription succeed:");
+            console.log(result);
             this.subscription = {};
+            this.isSubscribing = false;
+            swal('Success', 'Congratulations! you subscribed to this course.', 'success')
          } catch (err) {
             console.log(err);
             swal(
@@ -45,17 +45,7 @@ export default {
             )
          }
       }
-   },
-   watch: {
-      loader () {
-        const l = this.loader
-        this[l] = !this[l]
-
-        setTimeout(() => (this[l] = false), 3000)
-
-        this.loader = null
-      },
-    },
+   }
 }
 </script>
 <style lang="scss" scoped>
