@@ -4,10 +4,10 @@
       <v-btn :loading="isSubscribing" 
          value="Subscribe" 
          class="ml-2"  
-         color="success" 
+         v-bind:color="isSubscribed()===false ? 'success' : 'warning'"
          type="submit" 
-         @click="subscribe">
-          <span class="hidden-sm-and-down" left>Subscribe</span>
+         @click="toggleSubscribe()">
+          <span class="hidden-sm-and-down" left>{{subscribeBtn.label}}</span>
       </v-btn>
    </v-container>
 </template>
@@ -17,7 +17,10 @@ import swal from "sweetalert";
 export default {
    data: () => ({
       isSubscribing: false,
-      loading: false
+      loading: false,
+      subscribeBtn: {
+         label: 'Subscribe'
+      }
    }),
    methods: {
       async subscribe() {
@@ -44,10 +47,20 @@ export default {
                "error"
             )
          }
+      },
+      toggleSubscribe() {
+         if (this.isSubscribed()) {
+            this.unsubscribe();
+         } else {
+            this.subscribe();
+         }
+      },
+      isSubscribed() {
+         this.subscribeBtn.label = "Subscribe"
+         return false;
       }
    }
 }
 </script>
 <style lang="scss" scoped>
-
 </style>
