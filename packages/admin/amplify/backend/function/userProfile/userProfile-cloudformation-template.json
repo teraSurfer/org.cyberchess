@@ -5,21 +5,13 @@
 		"env": {
 			"Type": "String"
 		},
-		"storagesubscriptionsName": {
+		"storageProfilesName": {
 			"Type": "String",
-			"Default": "storagesubscriptionsName"
+			"Default": "storageProfilesName"
 		},
-		"storagesubscriptionsArn": {
+		"storageProfilesArn": {
 			"Type": "String",
-			"Default": "storagesubscriptionsArn"
-		},
-		"storageCoursesName": {
-			"Type": "String",
-			"Default": "storageCoursesName"
-		},
-		"storageCoursesArn": {
-			"Type": "String",
-			"Default": "storageCoursesArn"
+			"Default": "storageProfilesArn"
 		}
 	},
 	"Conditions": {
@@ -44,12 +36,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"subscriptions",
+						"userProfile",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"subscriptions",
+									"userProfile",
 									"-",
 									{
 										"Ref": "env"
@@ -66,12 +58,6 @@
 						},
 						"REGION": {
 							"Ref": "AWS::Region"
-						},
-						"STORAGE_COURSES_NAME": {
-							"Ref": "storageCoursesName"
-						},
-						"STORAGE_COURSES_ARN": {
-							"Ref": "storageCoursesArn"
 						}
 					}
 				},
@@ -85,7 +71,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-admin-jhrenv-111135-deployment",
-					"S3Key": "amplify-builds/subscriptions-57686e644d615669634e-build.zip"
+					"S3Key": "amplify-builds/userProfile-4b2b7a314b564c387437-build.zip"
 				}
 			}
 		},
@@ -95,12 +81,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"adminLambdaRole261608b1",
+						"adminLambdaRolebb88051e",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"adminLambdaRole261608b1",
+									"adminLambdaRolebb88051e",
 									"-",
 									{
 										"Ref": "env"
@@ -179,59 +165,18 @@
 							],
 							"Resource": [
 								{
-									"Ref": "storagesubscriptionsArn"
+									"Ref": "storageProfilesArn"
 								},
 								{
 									"Fn::Join": [
 										"/",
 										[
 											{
-												"Ref": "storagesubscriptionsArn"
+												"Ref": "storageProfilesArn"
 											},
 											"index/*"
 										]
 									]
-								}
-							]
-						}
-					]
-				}
-			}
-		},
-		"AmplifyResourcesPolicy": {
-			"DependsOn": [
-				"LambdaExecutionRole"
-			],
-			"Type": "AWS::IAM::Policy",
-			"Properties": {
-				"PolicyName": "amplify-lambda-execution-policy",
-				"Roles": [
-					{
-						"Ref": "LambdaExecutionRole"
-					}
-				],
-				"PolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Action": [
-								"dynamodb:Put*",
-								"dynamodb:Create*",
-								"dynamodb:BatchWriteItem",
-								"dynamodb:Get*",
-								"dynamodb:BatchGetItem",
-								"dynamodb:List*",
-								"dynamodb:Describe*",
-								"dynamodb:Scan",
-								"dynamodb:Query",
-								"dynamodb:Update*",
-								"dynamodb:RestoreTable*",
-								"dynamodb:Delete*"
-							],
-							"Resource": [
-								{
-									"Ref": "storageCoursesArn"
 								}
 							]
 						}

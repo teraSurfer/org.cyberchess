@@ -37,6 +37,24 @@
                     ]
                 }
             }
+        },
+        {
+            "name": "/profiles",
+            "lambdaFunction": "userProfile",
+            "privacy": {
+                "userPoolGroups": {
+                    "Admin": [
+                        "/GET",
+                        "/PUT",
+                        "/PATCH"
+                    ],
+                    "Users": [
+                        "/GET",
+                        "/PUT",
+                        "/PATCH"
+                    ]
+                }
+            }
         }
     ],
     "resourceName": "CyberChessApi",
@@ -48,13 +66,16 @@
         },
         {
             "lambdaFunction": "subscriptions"
+        },
+        {
+            "lambdaFunction": "userProfile"
         }
     ],
     "privacy": {
         "auth": 0,
         "unauth": 0,
-        "authRoleName": "amplify-admin-dev-180336-authRole",
-        "unAuthRoleName": "amplify-admin-dev-180336-unauthRole"
+        "authRoleName": "amplify-admin-jhrenv-111135-authRole",
+        "unAuthRoleName": "amplify-admin-jhrenv-111135-unauthRole"
     },
     "dependsOn": [
         {
@@ -93,7 +114,15 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "userProfile",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
     ],
-    "uuid": "c91fca77"
+    "uuid": "cbc08d82"
 }
