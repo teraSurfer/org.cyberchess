@@ -16,6 +16,10 @@
             <span>Live</span>
             <v-icon>fa-globe</v-icon>
         </v-btn>
+        <v-btn to="/dashboard/subscription" value="subscription">
+            <span>Subscription Test</span>
+            <v-icon>fa-cross</v-icon>
+        </v-btn>
     </v-bottom-navigation>
 </template>
 
