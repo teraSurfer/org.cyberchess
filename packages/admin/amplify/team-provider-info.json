@@ -75,5 +75,34 @@
                 "Courses": {}
             }
         }
+    },
+    "achalaesh": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-admin-achalaesh-212944-authRole",
+            "UnauthRoleArn": "arn:aws:iam::104349172281:role/amplify-admin-achalaesh-212944-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::104349172281:role/amplify-admin-achalaesh-212944-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-admin-achalaesh-212944-deployment",
+            "UnauthRoleName": "amplify-admin-achalaesh-212944-unauthRole",
+            "StackName": "amplify-admin-achalaesh-212944",
+            "StackId": "arn:aws:cloudformation:us-east-1:104349172281:stack/amplify-admin-achalaesh-212944/966e8680-0f44-11ea-848a-0e1aa735f904"
+        },
+        "categories": {
+            "auth": {
+                "userPoolGroups": {},
+                "CyberchessAuth": {}
+            },
+            "function": {
+                "CyberchessAuthPostConfirmation": {
+                    "GROUP": "Users"
+                },
+                "AdminQueriesacd20eba": {},
+                "courses": {},
+                "subscriptions": {},
+                "Profiles": {},
+                "CyberchessAuth": {},
+                "Courses": {}
+            }
+        }
     }
 }

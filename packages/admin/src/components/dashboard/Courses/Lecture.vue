@@ -30,7 +30,7 @@
               show-size
               counter
               multiple
-              accept=".mp4, .mkv, .pdf, .pgn"
+              accept=".mp4, .pdf, .pgn"
               v-model="lecture.files"
               label="Lecture Material"
               :rules="rules.lectureFileRules"
