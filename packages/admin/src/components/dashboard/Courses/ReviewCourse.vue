@@ -82,7 +82,10 @@ export default {
   mounted() {},
   data: () => ({
     isSubmitted: false,
-    fileRules: [v => !!v || "Please select a thumbnail for this course"],
+    fileRules: [
+      v => !!v || "Please select a thumbnail for this course",
+      v => (v && v.size < 1000000) ? true : "Thumbnail cannot be over 1MB"
+    ],
     upload: {
       lectureName: '',
       progress: 0
@@ -98,16 +101,17 @@ export default {
         let course = {};
         course.thumbnail = this.cleanThumbnail(this.c.thumbnail);
         course.lectures = this.cleanLectures(this.c.lectures.lectureList);
-        course.name = this.c.name;
+        course.course_name = this.c.name;
         course.instructor = await this.$Amplify.Auth.currentSession();
         course.instructor = course.instructor.idToken.payload.sub;
-        course.isListed = this.c.listed;
+        course.is_listed = this.c.listed;
+        course.excerpt = this.c.excerpt;
         let self = this;
         course.thumbnail = await this.$Amplify.Storage.put(
           `${this.cleanName(course.name)}/${course.thumbnail.realName}`,
           course.thumbnail,
           {
-            level: (course.isListed) ? 'protected' : 'private',
+            level: (course.is_listed) ? 'protected' : 'private',
             contentType: course.thumbnail.type,
             progressCallback(progress) {
               console.log(progress)
@@ -122,7 +126,7 @@ export default {
                 `${this.cleanName(course.name)}/${this.cleanName(lecture.name)}/${file.realName}`,
                 file,
                 {
-                  level: (course.isListed) ? 'protected' : 'private',
+                  level: (course.is_listed) ? 'protected' : 'private',
                   contentType: file.type,
                   progressCallback(progress) {
                     self.upload.lectureName = lecture.name;

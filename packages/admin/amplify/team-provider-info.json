@@ -66,7 +66,9 @@
                 "CyberchessAuth": {}
             },
             "function": {
-                "CyberchessAuthPostConfirmation": {},
+                "CyberchessAuthPostConfirmation": {
+                    "GROUP": "Users"
+                },
                 "AdminQueriesacd20eba": {},
                 "courses": {},
                 "subscriptions": {},
