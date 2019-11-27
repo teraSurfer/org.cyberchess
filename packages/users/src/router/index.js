@@ -33,17 +33,17 @@ const routes = [
     children: [ 
       {
         path: 'home',
-        name: 'Home',
+        name: 'home',
         component: () => import('@/components/dashboard/Home.vue')
       },
       {
         path: 'courses',
-        name: 'Courses',
+        name: 'Couses',
         component: () => import('@/components/dashboard/Courses.vue')
       },
       {
         path: 'coursesAll',
-        name: 'Courses',
+        name: 'Couses',
         component: () => import('@/components/dashboard/CoursesAll.vue')
       },
       {
