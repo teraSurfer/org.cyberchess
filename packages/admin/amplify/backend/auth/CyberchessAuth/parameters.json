@@ -22,7 +22,7 @@
         "phone_number"
     ],
     "userpoolClientGenerateSecret": true,
-    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientRefreshTokenValidity": "10",
     "userpoolClientWriteAttributes": [
         "email",
         "phone_number"

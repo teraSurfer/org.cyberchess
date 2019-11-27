@@ -70,7 +70,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-admin-jhrenv-111135-deployment",
+					"S3Bucket": "amplify-admin-dev-180336-deployment",
 					"S3Key": "amplify-builds/userProfile-4b2b7a314b564c387437-build.zip"
 				}
 			}

@@ -74,8 +74,8 @@
     "privacy": {
         "auth": 0,
         "unauth": 0,
-        "authRoleName": "amplify-admin-jhrenv-111135-authRole",
-        "unAuthRoleName": "amplify-admin-jhrenv-111135-unauthRole"
+        "authRoleName": "amplify-admin-dev-180336-authRole",
+        "unAuthRoleName": "amplify-admin-dev-180336-unauthRole"
     },
     "dependsOn": [
         {

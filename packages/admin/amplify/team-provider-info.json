@@ -12,10 +12,13 @@
         },
         "categories": {
             "function": {
-                "CyberchessAuthPostConfirmation": {},
+                "CyberchessAuthPostConfirmation": {
+                    "GROUP": "Users"
+                },
                 "AdminQueriesacd20eba": {},
                 "courses": {},
-                "subscriptions": {}
+                "subscriptions": {},
+                "userProfile": {}
             },
             "auth": {
                 "CyberchessAuth": {}
