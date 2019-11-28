@@ -12,7 +12,7 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Cyberchess Verification Code",
+    "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
@@ -33,10 +33,9 @@
     ],
     "userpoolClientLambdaRole": "Cybercb43215ee_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
-    "useDefault": "manual",
+    "useDefault": "default",
     "authSelections": "identityPoolAndUserPool",
     "resourceName": "CyberchessAuth",
-    "thirdPartyAuth": false,
     "usernameAttributes": [
         "email"
     ],
@@ -48,7 +47,6 @@
         "Admin",
         "Users"
     ],
-    "adminQueryGroup": "Admin",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",

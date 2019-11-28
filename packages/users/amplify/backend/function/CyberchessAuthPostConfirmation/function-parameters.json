@@ -1,9 +1,16 @@
 {
-    "permissions": {
-        "storage": {
-            "Profiles": [
-                "create"
-            ]
-        }
-    }
+    "trigger": true,
+    "modules": [
+        "add-to-group"
+    ],
+    "parentResource": "CyberchessAuth",
+    "functionName": "CyberchessAuthPostConfirmation",
+    "parentStack": "auth",
+    "triggerEnvs": "[]",
+    "triggerDir": "C:\\Users\\sulal\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\amplify-category-auth\\provider-utils\\awscloudformation\\utils/../triggers/PostConfirmation",
+    "roleName": "CyberchessAuthPostConfirmation",
+    "triggerTemplate": "PostConfirmation.json.ejs",
+    "triggerEventPath": "PostConfirmation.event.json",
+    "skipEdit": true,
+    "resourceName": "CyberchessAuthPostConfirmation"
 }
