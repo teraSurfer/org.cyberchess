@@ -81,76 +81,71 @@ app.get(path, function(req, res) {
  ******************************************************/
 app.get(path + '/profile_id/:id'  , function(req, res) {
   console.log("here-1-->profileid")
- console.log(req.params.id)
- let queryParams = {
-   TableName: tableName,
-   ProjectionExpression: "#CID, #P, #I, #L",  
-   FilterExpression: "#P = :profile_id",
-   ExpressionAttributeNames: {
-     "#CID": "subscription_id",
-     "#P": "profile_id",
-     "#I": "course_id",
-     "#L": "isDeleted",
-   },
-   ExpressionAttributeValues: {
-     ":profile_id": req.params.id
-   }
- }
-
- //del  var data1 = []
+  console.log(req.params.id)
+  let queryParams = {
+      TableName: tableName,
+      ProjectionExpression: "#I", // "#CID, #P, #I, #L",  
+      FilterExpression: "#P = :profile_id AND  #L = :isDeleted",
+      ExpressionAttributeNames: {
+        //  "#CID": "subscription_id",
+        "#P": "profile_id",
+        "#I": "course_id",
+        "#L": "isDeleted",
+      },
+      ExpressionAttributeValues: {
+        ":profile_id": req.params.id,
+        ":isDeleted": false
+      },
+  }
   dynamodb.scan(queryParams, (err, data) => {
-   if (err) {
-     res.statusCode = 500;
-     res.json({error: 'Could not load items: ' + err});
-   } else {
-
-     console.log('here-2-->data1.Items')
-     console.log (data.Items);
-     console.log("here-3-->data.Items[0].course_id");
-     console.log(data.Items[0].course_id);
-     console.log('here-4-->table suscription')
-     console.log(tableName)
-        
-     let query2Params = {
-       TableName: table2Name,
-       ProjectionExpression: "#N, #T, #L, #CID, #I",
-       FilterExpression: "#CID = :course_id",
-       ExpressionAttributeNames: {
-        "#I": "instructor",
-        "#CID": "course_id",
-        "#L": "isListed",
-        "#T": "thumbnail",
-        "#N": "name"
-       },
-       ExpressionAttributeValues: {
-         ":course_id": data.Items[0].course_id
-       }
+     if (err) {
+          res.statusCode = 500;
+          res.json({error: 'Could not load items: ' + err});
      } 
-    
-     console.log('here-5-->before 2nd query')
-     dynamodb.scan(query2Params, (err, data2) => {
-       if(err) {
-         res.statusCode = 500;
-         res.json({error: 'Could not load items: ' + err});
-       } else {
-         console.log('here-6--->data2.Items')
-         console.log(data2.Items)
-         res.json({d1:data.Items, d2: data2.Items});
-       }
-     })
-
-    //  res.json(data.Items); 
-
-   }    
+     else {
+          let ExpressionAttributeValues ={}; 
+          let FilterExpression = "";
+          data.Items.forEach(function(element, x) {
+              ExpressionAttributeValues[':course_id' +  x]=  element.course_id 
+              FilterExpression = FilterExpression + "#SS = :course_id" + x + (x < data.Items.length-1 ? " Or " : ""); 
+          });
+          // console.log(ExpressionAttributeValues);
+          // console.log(FilterExpression)
+          let query2Params = {
+            TableName: table2Name,
+              ProjectionExpression:   "#N, #T, #SS, #I",  
+              FilterExpression: FilterExpression,
+              ExpressionAttributeNames: {
+                "#I": "instructor",
+                "#SS": "course_id",
+                "#T": "thumbnail",
+                "#N": "name" 
+              },
+              ExpressionAttributeValues: ExpressionAttributeValues,
+          } 
+          // console.log(query2Params);
+          dynamodb.scan(query2Params, (err, data2) => {
+            if(err) {
+                res.statusCode = 500;
+                res.json({error: 'Could not load items: ' + err});
+            } else {
+                console.log('here-6--->data2.Items')
+                console.log(data2.Items)
+                // res.json({subscriptions:data.Items, courses:data2.Items});
+                res.json({courses:data2.Items});
+            }
+          })
+     }    
   });
- });
+   
+});
+        
 
 
 /******************************************************
  * HTTP Get method for list objects by scan courseId  *
  ******************************************************/
 app.get(path + '/course_id/:id'  , function(req, res) {
-  // console.log("here!!")
   console.log(req.params.id)
   let queryParams = {
     TableName: tableName,
@@ -188,6 +183,8 @@ app.get(path + hashKeyPath, function(req, res) {
   condition[partitionKeyName] = {
     ComparisonOperator: 'EQ'
   }
+  console.log("--condition1 -->")
+  console.log(condition)
 
   if (userIdPresent && req.apiGateway) {
     condition[partitionKeyName]['AttributeValueList'] = [req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH ];
@@ -199,11 +196,16 @@ app.get(path + hashKeyPath, function(req, res) {
       res.json({error: 'Wrong column type ' + err});
     }
   }
+  console.log("--condition2 -->")
+  console.log(condition)
 
   let queryParams = {
     TableName: tableName,
     KeyConditions: condition
   }
+
+  console.log("--queryParams -->")
+  console.log(queryParams)
 
   dynamodb.query(queryParams, (err, data) => {
     if (err) {
@@ -265,7 +267,6 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
 /************************************
 * HTTP put method for insert object *
 *************************************/
-
 app.put(path, function(req, res) {
 
   if (userIdPresent) {
@@ -286,10 +287,10 @@ app.put(path, function(req, res) {
   });
 });
 
+
 /************************************
 * HTTP post method for insert object *
 *************************************/
-
 app.post(path, function(req, res) {
 
   if (userIdPresent) {
@@ -310,10 +311,10 @@ app.post(path, function(req, res) {
   });
 });
 
+
 /**************************************
 * HTTP remove method to delete object *
 ***************************************/
-
 app.delete(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
   var params = {};
   if (userIdPresent && req.apiGateway) {
