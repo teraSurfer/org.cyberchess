@@ -16,9 +16,7 @@
         <v-spacer />
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on">
-              <v-icon>fa-pen</v-icon>
-            </v-btn>
+            <update-course :courseVal="course" v-on:course-updated="courseUpdated" />
           </template>
           <span>Edit Course</span>
         </v-tooltip>
@@ -37,7 +35,7 @@
             <v-list-item two-line>
               <v-list-item-content>
                 <v-list-item-title>Course Title:</v-list-item-title>
-                <v-list-item-subtitle>{{course.name}}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{course.course_name}}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-list-item two-line>
@@ -49,7 +47,7 @@
             <v-list-item two-line>
               <v-list-item-content>
                 <v-list-item-title>Thumbail:</v-list-item-title>
-                <v-img max-width="250px" :src="course.thumbnail.key"></v-img>
+                <v-img max-width="250px" :src="course.thumbnail.url"></v-img>
               </v-list-item-content>
             </v-list-item>
             <v-list-item class="pl-0 pr-0" two-line>
@@ -107,6 +105,7 @@
 
 <script>
 import swal from "sweetalert";
+import UpdateCourse from './UpdateCourse.vue'
 export default {
   data: () => ({
     course_id: "",
@@ -114,6 +113,9 @@ export default {
     baseUrl: "",
     loading: false
   }),
+  components: {
+      UpdateCourse
+  },
   created() {
     this.course_id = this.$route.params.id;
     this.loadBaseUrl();
@@ -131,7 +133,7 @@ export default {
           level: response.is_listed ? "protected" : "private"
         });
         // get thumbnail
-        response.thumbnail.key = thumbUrl
+        response.thumbnail.url = thumbUrl
           .split(
             "https://" +
               this.$Amplify.Storage._config.AWSS3.bucket +
@@ -178,7 +180,14 @@ export default {
     },
     goToLecture(file) {
         console.log(file)
-    } 
+    },
+    courseUpdated() {
+        swal({
+            title: "Updated Succesfully",
+            icon: "success"
+        });
+        this.getCourseDetails();
+    }
   }
 };
 </script>

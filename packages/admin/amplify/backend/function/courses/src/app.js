@@ -211,9 +211,9 @@ app.patch(path + '/object' + hashKeyPath + sortKeyPath, (req, res) => {
     Key: {
       course_id: req.params[partitionKeyName]
     },
-    UpdateExpression: `SET #CN = :CN, #E = :E, #L = :L, #IL = :IL, #T = :T, #U = :U`,
+    UpdateExpression: "SET #CN = :CN, #E = :E, #L = :L, #IL = :IL, #T = :T, #U = :U",
     ExpressionAttributeNames: {
-      "#CN": "name",
+      "#CN": "course_name",
       "#L": "lectures",
       "#IL": "is_listed",
       "#T": "thumbnail",
@@ -221,12 +221,12 @@ app.patch(path + '/object' + hashKeyPath + sortKeyPath, (req, res) => {
       "#U": "updated_at"
     },
     ExpressionAttributeValues: {
-      ":CN": req.body.name,
+      ":CN": req.body.course_name,
       ":L": req.body.lectures,
       ":IL": req.body.is_listed,
       ":T": req.body.thumbnail,
       ":E": req.body.excerpt,
-      ":U": new Date().toUTCString
+      ":U": new Date().toUTCString()
     }
   };
   dynamodb.update(updateItemParams, (err, data) => {

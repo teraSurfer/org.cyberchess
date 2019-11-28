@@ -2,12 +2,12 @@
   <v-container class="justify-center">
     <v-row class="all-courses">
       <v-card class="fixedheight" v-if="allCourses.length == 0" flat>
-        <v-card-text class>
+        <v-card-text>
           <h3>Looks like you dont have any courses yet.</h3>
         </v-card-text>
       </v-card>
       <v-col
-        md="4"
+        md="3"
         class="justify-center"
         v-for="course of allCourses"
         :key="course.course_id"
