@@ -71,10 +71,11 @@ app.get(path, function (req, res) {
     TableName: tableName,
     Limit: limit,
     Count: true,
-    ProjectionExpression: "#N, #T, #L, #CID, #I, #E, #C, #U",
+    ProjectionExpression: "#N, #T, #L, #CID, #I, #E, #C, #U, #II",
     FilterExpression: "#D <> :D",
     ExpressionAttributeNames: {
       "#I": "instructor",
+      "#II": "instructor_id",
       "#CID": "course_id",
       "#L": "is_listed",
       "#T": "thumbnail",

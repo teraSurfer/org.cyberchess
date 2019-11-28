@@ -1,7 +1,7 @@
 <template>
-  <v-container class="justify-center">
-    <v-row class="all-courses">
-      <v-card class="fixedheight" v-if="allCourses.length == 0" flat>
+  <v-container class="justify-center align-start">
+    <v-row class="all-courses justify-center align-start">
+      <v-card v-if="allCourses.length == 0" flat>
         <v-card-text>
           <h3>Looks like you dont have any courses yet.</h3>
         </v-card-text>
@@ -96,7 +96,7 @@ export default {
 
 <style lang="scss" scoped>
 .all-courses {
-  height: 65vh;
+  height: 70vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
