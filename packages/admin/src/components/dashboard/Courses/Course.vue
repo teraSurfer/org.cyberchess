@@ -46,6 +46,12 @@
             </v-list-item>
             <v-list-item two-line>
               <v-list-item-content>
+                <v-list-item-title>Course Description:</v-list-item-title>
+                <v-list-item-subtitle>{{course.excerpt}}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item two-line>
+              <v-list-item-content>
                 <v-list-item-title>Thumbail:</v-list-item-title>
                 <v-img max-width="250px" :src="course.thumbnail.url"></v-img>
               </v-list-item-content>

@@ -114,7 +114,7 @@ export default {
       try {
         this.isSubmitted = true;
         let course = {};
-        course.thumbnail = this.cleanThumbnail(this.c.thumbnail);
+        course.thumbnail = (this.c.thumbnail.key) ? this.c.thumbnail : this.cleanThumbnail(this.c.thumbnail);
         course.lectures = this.cleanLectures(this.c.lectures.lectureList);
         course.course_name = this.c.course_name;
         course.instructor = await this.$Amplify.Auth.currentSession();
@@ -141,7 +141,7 @@ export default {
           for (let lecture of course.lectures) {
             for (let file of lecture.files) {
               console.log(course.course_name, lecture.name, file)
-              if(file) {
+              if(!file.key) {
               let f = await this.$Amplify.Storage.put(
                 `${this.cleanName(course.course_name)}/${this.cleanName(lecture.name)}/${file.realName}`,
                 file,
@@ -159,6 +159,7 @@ export default {
             }
             }
           }
+          console.log(course);
           if(this.type === 'create') {
             await this.$Amplify.API.post("CyberChessApi", "/courses", {
               body: { ...course }
@@ -195,7 +196,7 @@ export default {
             );
             file.realName = file.realName.split(" ").join("");
             return file;
-          }
+          } return file;
         });
         return lec;
       });

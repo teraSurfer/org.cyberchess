@@ -64,36 +64,43 @@ const convertUrlType = (param, type) => {
  * HTTP Get method for list objects *
  ********************************/
 
-app.get(path + hashKeyPath, function (req, res) {
-  var condition = {}
-  condition[partitionKeyName] = {
-    ComparisonOperator: 'EQ'
-  }
-
-  if (userIdPresent && req.apiGateway) {
-    condition[partitionKeyName]['AttributeValueList'] = [req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH];
-  } else {
-    try {
-      condition[partitionKeyName]['AttributeValueList'] = [convertUrlType(req.params[partitionKeyName], partitionKeyType)];
-    } catch (err) {
-      res.statusCode = 500;
-      res.json({ error: 'Wrong column type ' + err });
+app.get(path, function (req, res) {
+  const lastKey = (req.query.last_key !== '') ? req.query.last_key : false;
+  const limit = (req.query.limit !== '') ? req.query.limit : 10;
+  let scanParams = {
+    TableName: tableName,
+    Limit: limit,
+    Count: true,
+    ProjectionExpression: "#N, #T, #L, #CID, #I, #E, #C, #U",
+    FilterExpression: "#D <> :D",
+    ExpressionAttributeNames: {
+      "#I": "instructor",
+      "#CID": "course_id",
+      "#L": "is_listed",
+      "#T": "thumbnail",
+      "#N": "course_name",
+      "#E": "excerpt",
+      "#D": "is_deleted",
+      "#C": "created_at",
+      "#U": "updated_at"
+    },
+    ExpressionAttributeValues: {
+      ":D": true,
     }
   }
-
-  let queryParams = {
-    TableName: tableName,
-    KeyConditions: condition
+  if(lastKey) { 
+    scanParams.ExclusiveStartKey = { "course_id": lastKey };
   }
-
-  dynamodb.query(queryParams, (err, data) => {
+  console.log(scanParams)
+  dynamodb.scan(scanParams, (err, data) => {
     if (err) {
       res.statusCode = 500;
       res.json({ error: 'Could not load items: ' + err });
     } else {
-      res.json(data.Items);
+      res.json(data);
     }
-  });
+  })
+
 });
 
 /*****************************************
