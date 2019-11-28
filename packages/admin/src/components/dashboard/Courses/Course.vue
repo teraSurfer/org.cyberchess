@@ -202,16 +202,7 @@ export default {
           let url = await this.$Amplify.Storage.get(file.key, {
             level: this.course.is_listed ? "protected" : "private"
           });
-          window.open(
-            url
-              .split(
-                "https://" +
-                  this.$Amplify.Storage._config.AWSS3.bucket +
-                  ".s3.amazonaws.com"
-              )
-              .join(this.baseUrl),
-            "_blank"
-          );
+          window.open(this.$CyberChess.getCloudUrl(url),"_blank");
           break;
         }
         case "mp4": {
