@@ -34,7 +34,6 @@ export default {
   data: () => ({
     allCourses: [],
     userInfo: '',
-    baseUrl: ''
   }),
   props: {
     flag: Boolean
@@ -46,12 +45,10 @@ export default {
     }
   },
   async created() {
-    this.loadBaseUrl()
     this.loadCourses()
   },
   methods: {
     async loadCourses() {
-      console.log('here?')
       try {
         this.allCourses = [];
         this.userInfo =  await this.$Amplify.Auth.currentUserInfo();
@@ -61,30 +58,18 @@ export default {
           "CyberChessApi",
           `/courses/instructor/${cognitoId.idToken.payload.sub}`
         );
-        console.log(response)
         let re = response.Items;
           re = re.map(async val => {
             const thumbUrl = await this.$Amplify.Storage.get(val.thumbnail.key, {level: (val.is_listed) ? 'protected' : 'private'})
-            val.thumbnail.key = thumbUrl.split('https://'+this.$Amplify.Storage._config.AWSS3.bucket+'.s3.amazonaws.com').join(this.baseUrl)
-            console.log(val)
+            val.thumbnail.key = this.$CyberChess.getCloudUrl(thumbUrl);
             return val;
           })
         Promise.allSettled(re).then(res => res.forEach(element => {
           if(element.status === 'fulfilled') this.allCourses.push(element.value);
         }))
-        console.log(this.allCourses)
       } catch(err) {
           console.log(err)
       }
-    },
-    loadBaseUrl() {
-      const urls = {
-        dev: 'https://d15qyykdkts3kc.cloudfront.net',
-        achalaesh: 'https://dd0fq9p45tg50.cloudfront.net'
-      }
-      let bucketName = this.$Amplify.Storage._config.AWSS3.bucket;
-      let env = bucketName.split('-');
-      this.baseUrl = urls[env[env.length-1]]
     },
     toCourse(course) {
       if(course)
