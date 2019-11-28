@@ -1,5 +1,5 @@
 <template>
-    <v-col>
+    <v-col class="mt-8">
         <add-new-course v-on:course-created="courseCreated()" />
         <v-row>
             <get-all-courses :flag="flag" />

@@ -1,5 +1,5 @@
 {
-  "name": "cyberchess-app",
+  "name": "@cyberchess.org/cyberchess-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {

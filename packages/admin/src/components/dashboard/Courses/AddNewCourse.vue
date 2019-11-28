@@ -35,7 +35,7 @@
                 >
                   <v-text-field
                     label="Course Name"
-                    v-model="course.name"
+                    v-model="course.course_name"
                     required
                     :rules="rules.nameRules"
                     :counter="20"
@@ -84,10 +84,10 @@ export default {
       dialog: false,
       courseStepper: 0,
       course: {
-        name: "",
+        course_name: "",
         excerpt: "",
         thumbnail: null,
-        listed: false,
+        is_listed: false,
         valid: false,
         lectures: {
           lectureList: [],
