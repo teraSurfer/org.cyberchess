@@ -86,9 +86,7 @@ import { API } from 'aws-amplify'
         this.darkMode = this.$store.getters['settings/darkMode']
         const user = await this.$Amplify.Auth.currentSession()
         console.log(user)
-        //this.id = user.idToken.payload.sub;
-        //const user_id = this.id;
-        //console.log(this.id)
+        
     },
     methods: {
         changeTheme() {
@@ -96,14 +94,11 @@ import { API } from 'aws-amplify'
             this.$store.dispatch('settings/SET_DARK_MODE', this.darkMode)
         },
         updateEmail: async function () {
-             //console.log(this.id)
-              //this.id = user.idToken.payload.sub;
-             //const credentials = await this.$amplify.Auth.currentCredentials();
+             
              const user = await this.$Amplify.Auth.currentSession()
              console.log(user)
              this.id = user.idToken.payload.sub;
              console.log(this.id)
-             //const user_id = this.id;
              const apiPath = `/profiles/${this.id}`
              const response = await API.get(this.apiName,apiPath)
              console.log(response)

@@ -38,12 +38,12 @@ const routes = [
       },
       {
         path: 'courses',
-        name: 'couses',
+        name: 'Couses',
         component: () => import('@/components/dashboard/Courses.vue')
       },
       {
         path: 'coursesAll',
-        name: 'couses',
+        name: 'Couses',
         component: () => import('@/components/dashboard/CoursesAll.vue')
       },
       {
