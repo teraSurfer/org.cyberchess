@@ -29,32 +29,16 @@ export default {
   data: () => ({
     lecture: "",
     url: "",
-    baseUrl: ""
   }),
   async created() {
-    this.loadBaseUrl()
     this.lecture = await window.sessionStorage.getItem("lecture");
     this.lecture = JSON.parse(this.lecture);
     let u = await this.$Amplify.Storage.get(this.lecture.k, {
       level: this.lecture.il ? "protected" : "private"
     });
-    this.url = u.split(
-      "https://" +
-        this.$Amplify.Storage._config.AWSS3.bucket +
-        ".s3.amazonaws.com"
-    ).join(this.baseUrl);
-    console.log(this.url)
+    this.url = this.$CyberChess.getCloudUrl(u);
   },
   methods: {
-      loadBaseUrl() {
-      const urls = {
-        dev: "https://d15qyykdkts3kc.cloudfront.net",
-        achalaesh: "https://dd0fq9p45tg50.cloudfront.net"
-      };
-      let bucketName = this.$Amplify.Storage._config.AWSS3.bucket;
-      let env = bucketName.split("-");
-      this.baseUrl = urls[env[env.length - 1]];
-    },
     back() {
         this.$router.go(-1);
     }
