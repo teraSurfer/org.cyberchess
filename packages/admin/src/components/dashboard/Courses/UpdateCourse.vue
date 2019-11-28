@@ -3,10 +3,8 @@
     <v-spacer />
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <template v-slot:activator="{ on }">
-        <v-btn value="Create Course" class="ml-2" v-on="on">
-          <span class="hidden-sm-and-down" left>Create Course</span>
-          <span class="hidden-md-and-up" left>New</span>
-          <v-icon right>fa-plus</v-icon>
+        <v-btn icon class="ml-2" v-on="on">
+          <v-icon>fa-pen</v-icon>
         </v-btn>
       </template>
       <v-card>
@@ -14,7 +12,7 @@
           <v-btn icon @click="dialog = false">
             <v-icon>fa-times</v-icon>
           </v-btn>
-          <v-toolbar-title>Create New Course</v-toolbar-title>
+          <v-toolbar-title>Update Course</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-container>
@@ -47,7 +45,7 @@
                     :counter="200"
                     :rules="rules.descriptionRules"
                     required
-                    outlined
+                    filled
                   ></v-textarea>
                   <v-btn outlined type="submit" :disabled="!course.valid">
                     <span left>Next</span>
@@ -60,11 +58,17 @@
                   v-on:cyb-back="backRequested(1)"
                   v-on:form-submitted="handleLecturesSubmit($event)"
                   :l="course.lectures.lectureList"
+                  type="update"
                   class="justify-center"
                 />
               </v-stepper-content>
               <v-stepper-content step="3" class="lectures-box">
-                <review-course v-on:course-created="courseCreated" v-on:cyb-back="backRequested(2)" :c="course"></review-course>
+                <review-course
+                  v-on:course-updated="courseUpdated"
+                  v-on:cyb-back="backRequested(2)"
+                  :c="course"
+                  type="update"
+                ></review-course>
               </v-stepper-content>
             </v-stepper-items>
           </v-stepper>
@@ -73,43 +77,56 @@
     </v-dialog>
   </v-row>
 </template>
-
 <script>
 import Lecture from './Lecture.vue';
 import ReviewCourse from './ReviewCourse.vue';
-// import _ from 'lodash';
 export default {
-  data() {
-    return {
-      dialog: false,
-      courseStepper: 0,
-      course: {
-        course_name: "",
-        excerpt: "",
-        thumbnail: null,
-        is_listed: false,
-        valid: false,
-        lectures: {
-          lectureList: [],
-          valid: false
-        }
-      },
+    data: () => ({
+        dialog: false,
+        courseStepper: 0,
+        course: {
+            course_name: "",
+            course_id: "",
+            excerpt: "",
+            thumbnail: null,
+            is_listed: false,
+            valid: false,
+            lectures: {
+              lectureList: [],
+              valid: false
+            }
+        },
       rules: {
         nameRules: [
           v => !!v || "Course name is required",
-          v =>
-            v.length <= 20 || "Course name cannot be greater than 20 characters"
+          v => {
+              if(v) {
+               return v.length <= 20 || "Course name cannot be greater than 20 characters" 
+              } else return false
+          } 
         ],
         descriptionRules: [
           v => !!v || "Course description is required",
-          v =>
+          v => 
             v.length <= 200 ||
             "Course name cannot be greater than 200 characters"
         ]
       }
-    };
+    }),
+    props: {
+        courseVal: Object
+    },
+  mounted() {
+      if(this.courseVal) {
+          this.course.course_name = this.courseVal.course_name;
+          this.course.excerpt = this.courseVal.excerpt;
+          this.course.thumbnail = this.courseVal.thumbnail;
+          this.course.lectures.lectureList = this.courseVal.lectures;
+          this.course.is_listed = this.courseVal.is_listed;
+          this.course.course_id = this.courseVal.course_id;
+      }
+      console.log(this.course)
   },
-  mounted() {},
   methods: {
     handleCourseDetailsSubmit() {
       if (this.course.valid) {
@@ -124,8 +141,8 @@ export default {
     backRequested(num) {
       this.courseStepper = num;
     },
-    courseCreated() {
-      this.$emit('course-created')
+    courseUpdated() {
+      this.$emit('course-updated')
       this.dialog = false;
     }
   },

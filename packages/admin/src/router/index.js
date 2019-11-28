@@ -43,6 +43,11 @@ const routes = [
         component: () => import('@/components/dashboard/Courses/Courses.vue')
       },
       {
+        path: 'courses/:id',
+        name: 'Course',
+        component: () => import('@/components/dashboard/Courses/Course.vue')
+      },
+      {
         path: 'live',
         name: 'Live',
         component: () => import('@/components/dashboard/Live.vue')

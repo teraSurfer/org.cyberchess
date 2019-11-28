@@ -153,7 +153,7 @@ app.get(path+ '/instructor/:id', function(req, res) {
     ExpressionAttributeNames: {
         "#I": "instructor",
         "#CID": "course_id",
-        "#L": "isListed",
+        "#L": "is_listed",
         "#T": "thumbnail",
         "#N": "name"
     },
