@@ -117,8 +117,15 @@ export default {
         course.thumbnail = (this.c.thumbnail.key) ? this.c.thumbnail : this.cleanThumbnail(this.c.thumbnail);
         course.lectures = this.cleanLectures(this.c.lectures.lectureList);
         course.course_name = this.c.course_name;
-        course.instructor = await this.$Amplify.Auth.currentSession();
-        course.instructor = course.instructor.idToken.payload.sub;
+        if(this.type === 'create') {
+          course.instructor = await this.$Amplify.Auth.currentSession();
+          course.instructor = course.instructor.idToken.payload.sub;
+          course.instructor_id = await this.$Amplify.Auth.currentCredentials();
+          course.instructor_id = course.instructor_id.data.IdentityId;
+        } else {
+          course.instructor = this.c.instructor;
+          course.instructor_id = this.c.instructor_id;
+        }
         course.is_listed = this.c.is_listed;
         course.excerpt = this.c.excerpt;
         console.log(course)

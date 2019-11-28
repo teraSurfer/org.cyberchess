@@ -30,14 +30,14 @@
               chips
               show-size
               counter
-              v-if="(!lecture.files || lecture.files.length == 0 )|| (lecture.files.length > 0 && !lecture.files[index].realName)"
+              v-if="(!lecture.files || lecture.files.length == 0 )|| (lecture.files.length > 0 && !lecture.files[0].realName)"
               multiple
               accept=".mp4, .pdf, .pgn"
               v-model="lecture.files"
               label="Lecture Material"
               :rules="rules.lectureFileRules"
             ></v-file-input>
-            <v-chip-group v-if="lecture.files && lecture.files.length > 0 && lecture.files[index].realName">
+            <v-chip-group v-if="lecture.files && lecture.files.length > 0 && lecture.files[0].realName">
               <v-chip v-for="(file, i) in lecture.files" :key="i" @click:close="removeFile(index, i)" close>{{ file.realName }}</v-chip>
             </v-chip-group>
           </v-card-text>
