@@ -1,8 +1,7 @@
 <template>
     <v-container fluid class="fill-height padding-0">
-        <v-row class="fill-height">
             <sidebar :sidebar="expand" v-on:check="setExpand($event)" />
-            <v-col class="pt-0 dashboard">
+            <v-col class="pt-0 dashboard padding-0">
             <v-toolbar flat class="pl-2">
                 <v-btn @click="expand =!expand" icon text>
                 <v-icon>fa-bars</v-icon>
@@ -14,7 +13,6 @@
             <router-view />
             </v-col>
             <bottom-nav />
-            </v-row>
     </v-container>
 </template>
 
