@@ -31,8 +31,9 @@ export default {
   
   async mounted() {
     let self = this;
-    // console.log(await this.$Amplify.Auth.currentCredentials());
-    console.log(await this.$Amplify.API.get('CyberChessApi', '/courses?limit=1&last_key=787ed72d-52d6-4d46-973a-78f44c09766a'));
+    let v= await this.$Amplify.Auth.currentCredentials();
+    console.log(v.data.IdentityId)
+    // console.log(await this.$Amplify.API.get('CyberChessApi', '/courses?limit=1&last_key=787ed72d-52d6-4d46-973a-78f44c09766a'));
     AmplifyEventBus.$on('authState', async function(authState) {
       if(authState === 'signedIn') {
         const currentSession = await self.$Amplify.Auth.currentSession();
@@ -78,11 +79,13 @@ export default {
 }
 ::-webkit-scrollbar-track {
  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+ box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
  border-radius: 10px;
  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+ box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
 }
   
 </style>
