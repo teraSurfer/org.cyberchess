@@ -1,17 +1,21 @@
 <template>
-    <v-content class="dashboard">
-        <v-row class="fill-height">
-            <sidebar />
-                <v-container class="fill-height">   
-                    <v-col cols="12" class="fill-height"> 
-                        <h3>User Dashboard - {{getBreadcrumb}} </h3>
-                        <router-view />
-                    </v-col>
-                </v-container>
-        </v-row>
-        <bottom-nav />
-    </v-content>
+    <v-container fluid class="fill-height padding-0">
+            <sidebar :sidebar="expand" v-on:check="setExpand($event)" />
+            <v-col class="pt-0 dashboard padding-0">
+            <v-toolbar flat class="pl-2">
+                <v-btn @click="expand =!expand" icon text>
+                <v-icon>fa-bars</v-icon>
+                </v-btn>
+                <v-spacer />
+                <h4 class="mb-0">User Dashboard - {{getTitle}}</h4>
+                <v-spacer />
+            </v-toolbar>
+            <router-view />
+            </v-col>
+            <bottom-nav />
+    </v-container>
 </template>
+
 
 <script>
 import Sidebar from '@/components/dashboard/Sidebar.vue'
@@ -22,20 +26,32 @@ export default {
         BottomNav
     },
     created() {
-        if(this.$route.name !== 'Home')
-            this.$router.push('./home')      //maybe acha bug
+        if(this.$route.name === 'Dashboard')        //maybe acha bug
+            this.$router.push('/dashboard/home')
+        // if(this.$route.name !== 'Home')
+        //     this.$router.push('./home')      //maybe acha bug
     },
     computed: {
-        getBreadcrumb(){
+        getTitle(){
             return this.$route.name
         }
-    }   
-
+    },
+    data: () => ({
+        expand: true
+    }),
+    methods: {
+        setExpand(e) {
+            this.expand = e;
+        }
+    }
 }
 </script>
 
 <style lang="scss">
     .dashboard {
         height: calc(100% - 56px);
+    }
+    .padding-0 {
+        padding: 0;
     }
 </style>

@@ -20,7 +20,7 @@ export default {
     //
   }),
   created() {
-    this.$vuetify.theme.dark = true;
+    this.$vuetify.theme.dark = this.$store.getters['settings/darkMode'];
   },
 
   computed: {
@@ -34,12 +34,13 @@ export default {
     AmplifyEventBus.$on('authState', async function(authState) {
       if(authState === 'signedIn') {
         const currentSession = await self.$Amplify.Auth.currentSession();
-        if(currentSession) {
+        console.log(currentSession.idToken.payload['cognito:groups']);
+        if(currentSession.idToken.payload['cognito:groups'] && currentSession.idToken.payload['cognito:groups'][0] === 'Admin') {         
           self.$store.dispatch('auth/LOGGED_IN');
           self.$router.push('dashboard');
         } else {
-          swal('Error','Something went wrong. Please login again', 'error')
           window.localStorage.clear();
+          swal('Sorry', 'You are not authorized', 'error');
           window.location.href = '/';
         }
       }
@@ -76,8 +77,8 @@ export default {
    border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb{
-   -webkit-box-shadow: insert 0 0 6px rgba(0, 0, 0, 0.8);
    border-radius: 10px; 
+   -webkit-box-shadow: insert 0 0 6px rgba(0, 0, 0, 0.8);
   }
 
 </style>
