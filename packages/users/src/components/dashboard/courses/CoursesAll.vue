@@ -11,7 +11,7 @@
 
 
 <script>
-import CourseComponent from './courses/CourseComponent.vue'
+import CourseComponent from './CourseComponent.vue'
 export default {
   data: () => ({
     courses: [
