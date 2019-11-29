@@ -28,7 +28,7 @@ jobs:
         # npm run test
         
     - name: configure amplify
-      uses: ambientlight/amplify-cli-action@v0.2.0
+      uses: ./.github/actions/amplify-action
       with:
         amplify_command: configure
         amplify_env: prod
