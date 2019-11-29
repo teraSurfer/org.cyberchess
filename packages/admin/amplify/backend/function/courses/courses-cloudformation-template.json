@@ -71,7 +71,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-admin-jhrenv-111135-deployment",
-					"S3Key": "amplify-builds/courses-68453130336151557a73-build.zip"
+					"S3Key": "amplify-builds/courses-554873745a7547794436-build.zip"
 				}
 			}
 		},
