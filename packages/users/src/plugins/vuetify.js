@@ -14,16 +14,16 @@ export default new Vuetify({
           primary: '#732222',
           secondary: '#424242',
           accent: '#DADABE',
-          error: '#FF5252',
+          error: '#FF3000',
           info: '#2196F3',
           success: '#4CAF50',
           warning: '#FFC107'
         },
         dark: {
           primary: '#DADABE',
-          secondary: '#424242',
+          secondary: '#252525',
           accent: '#732222',
-          error: '#FF5252',
+          error: '#FF3000',
           info: '#2196F3',
           success: '#4CAF50',
           warning: '#FFC107'
