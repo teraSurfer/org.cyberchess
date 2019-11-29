@@ -52,6 +52,11 @@
         changeTheme() {
             this.$vuetify.theme.dark = this.darkMode
             this.$store.dispatch('settings/SET_DARK_MODE', this.darkMode)
+            if (this.darkMode) {//Don't delete if-else. iOS app handler
+              window.webkit.messageHandlers.callbackHandler.postMessage("dark_mode");
+            } else {
+              window.webkit.messageHandlers.callbackHandler.postMessage("light_mode");
+            }
         }
     }
   }
