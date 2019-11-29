@@ -28,7 +28,7 @@ jobs:
         # npm run test
         
     - name: configure amplify
-      uses: ./.github/actions/amplify-action
+      uses: ./.github/actions
       with:
         amplify_command: configure
         amplify_env: prod
@@ -38,7 +38,7 @@ jobs:
         AWS_REGION: us-east-1
     
     - name: deploy
-      uses: ./github/actions/amplify-action
+      uses: ./github/actions
       with:
         amplify_command: publish
         amplify_env: prod
