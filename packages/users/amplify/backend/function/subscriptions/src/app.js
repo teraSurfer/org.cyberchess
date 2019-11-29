@@ -19,6 +19,7 @@ const AWS = require('aws-sdk')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 var bodyParser = require('body-parser')
 var express = require('express')
+const uuidV4 = require('uuid/v4')
 
 AWS.config.update({ region: process.env.TABLE_REGION });
 
@@ -29,13 +30,18 @@ if(process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + '-' + process.env.ENV;
 }
 
+let table2Name = "Courses";
+if(process.env.ENV && process.env.ENV !== "NONE") {
+  table2Name = table2Name + '-' + process.env.ENV;
+}
+
 const userIdPresent = false; // TODO: update in case is required to use that definition
 const partitionKeyName = "subscription_id";
 const partitionKeyType = "S";
 const sortKeyName = "";
 const sortKeyType = "";
 const hasSortKey = sortKeyName !== "";
-const path = "/items";
+const path = "/subscriptions";
 const UNAUTH = 'UNAUTH';
 const hashKeyPath = '/:' + partitionKeyName;
 const sortKeyPath = hasSortKey ? '/:' + sortKeyName : '';
@@ -61,15 +67,125 @@ const convertUrlType = (param, type) => {
   }
 }
 
-/********************************
- * HTTP Get method for list objects *
- ********************************/
 
+/**************************************
+ * test APIGateway access  Test       *
+ *************************************/
+app.get(path, function(req, res) {
+  res.statusCode = 200;
+  res.json({msg: 'res from custom function'});
+})
+
+
+/******************************************************
+ * HTTP Get method for list objects by scan profileId  *
+ ******************************************************/
+app.get(path + '/profile_id/:id'  , function(req, res) {
+  console.log("here-1-->profileid")
+  console.log(req.params.id)
+  let queryParams = {
+      TableName: tableName,
+      ProjectionExpression: "#I", // "#CID, #P, #I, #L",  
+      FilterExpression: "#P = :profile_id AND  #L = :isDeleted",
+      ExpressionAttributeNames: {
+        //  "#CID": "subscription_id",
+        "#P": "profile_id",
+        "#I": "course_id",
+        "#L": "isDeleted",
+      },
+      ExpressionAttributeValues: {
+        ":profile_id": req.params.id,
+        ":isDeleted": false
+      },
+  }
+  dynamodb.scan(queryParams, (err, data) => {
+     if (err) {
+          res.statusCode = 500;
+          res.json({error: 'Could not load items: ' + err});
+     } 
+     else {
+          let ExpressionAttributeValues ={}; 
+          let FilterExpression = "";
+          data.Items.forEach(function(element, x) {
+              ExpressionAttributeValues[':course_id' +  x]=  element.course_id 
+              FilterExpression = FilterExpression + "#SS = :course_id" + x + (x < data.Items.length-1 ? " Or " : ""); 
+          });
+          // console.log(ExpressionAttributeValues);
+          // console.log(FilterExpression)
+          let query2Params = {
+            TableName: table2Name,
+              ProjectionExpression:   "#N, #T, #SS, #I",  
+              FilterExpression: FilterExpression,
+              ExpressionAttributeNames: {
+                "#I": "instructor",
+                "#SS": "course_id",
+                "#T": "thumbnail",
+                "#N": "name" 
+              },
+              ExpressionAttributeValues: ExpressionAttributeValues,
+          } 
+          // console.log(query2Params);
+          dynamodb.scan(query2Params, (err, data2) => {
+            if(err) {
+                res.statusCode = 500;
+                res.json({error: 'Could not load items: ' + err});
+            } else {
+                console.log('here-6--->data2.Items')
+                console.log(data2.Items)
+                // res.json({subscriptions:data.Items, courses:data2.Items});
+                res.json({courses:data2.Items});
+            }
+          })
+     }    
+  });
+   
+});
+        
+
+
+/******************************************************
+ * HTTP Get method for list objects by scan courseId  *
+ ******************************************************/
+app.get(path + '/course_id/:id'  , function(req, res) {
+  console.log(req.params.id)
+  let queryParams = {
+    TableName: tableName,
+    ProjectionExpression: "#CID, #P, #I, #L",  
+    FilterExpression: "#I = :course_id",
+    ExpressionAttributeNames: {
+        "#CID": "subscription_id",
+        "#P": "profile_id",
+        "#I": "course_id",
+        "#L": "isDeleted",
+    },
+    ExpressionAttributeValues: {
+      ":course_id": req.params.id
+    }
+  }
+
+  dynamodb.scan(queryParams, (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.json({error: 'Could not load items: ' + err});
+    } else {
+      res.json(data.Items); 
+    }
+  });
+  
+});
+
+
+
+/**********************************************
+ * HTTP Get method for list objects by query *
+ *********************************************/
 app.get(path + hashKeyPath, function(req, res) {
   var condition = {}
   condition[partitionKeyName] = {
     ComparisonOperator: 'EQ'
   }
+  console.log("--condition1 -->")
+  console.log(condition)
 
   if (userIdPresent && req.apiGateway) {
     condition[partitionKeyName]['AttributeValueList'] = [req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH ];
@@ -81,11 +197,16 @@ app.get(path + hashKeyPath, function(req, res) {
       res.json({error: 'Wrong column type ' + err});
     }
   }
+  console.log("--condition2 -->")
+  console.log(condition)
 
   let queryParams = {
     TableName: tableName,
     KeyConditions: condition
   }
+
+  console.log("--queryParams -->")
+  console.log(queryParams)
 
   dynamodb.query(queryParams, (err, data) => {
     if (err) {
@@ -97,10 +218,11 @@ app.get(path + hashKeyPath, function(req, res) {
   });
 });
 
-/*****************************************
- * HTTP Get method for get single object *
- *****************************************/
 
+
+/**************************************************
+ * HTTP Get method for get single object by Query *
+ *************************************************/
 app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
   var params = {};
   if (userIdPresent && req.apiGateway) {
@@ -177,9 +299,13 @@ app.post(path, function(req, res) {
     req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
 
+  let i = {
+    subscription_id: uuidV4(),
+    ...req.body
+  }
   let putItemParams = {
     TableName: tableName,
-    Item: req.body
+    Item: i
   }
   dynamodb.put(putItemParams, (err, data) => {
     if(err) {
@@ -217,16 +343,24 @@ app.delete(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
     }
   }
 
-  let removeItemParams = {
+  let deleteParams = {
     TableName: tableName,
+    ExpressionAttributeNames: {
+      "#AT": "is_deleted",
+     }, 
+     ExpressionAttributeValues: {
+      ":t": true
+     },
+    UpdateExpression: "SET #AT = :t",
     Key: params
   }
-  dynamodb.delete(removeItemParams, (err, data)=> {
+
+  dynamodb.update(deleteParams, function(err, data) {
     if(err) {
       res.statusCode = 500;
-      res.json({error: err, url: req.url});
-    } else {
-      res.json({url: req.url, data: data});
+      res.json({error: err, url: req.url, body: req.body});
+    } else{
+      res.json({success: '(update) delete call succeed!', url: req.url, data: data})
     }
   });
 });

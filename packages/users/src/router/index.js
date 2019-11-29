@@ -33,23 +33,29 @@ const routes = [
     children: [ 
       {
         path: 'home',
-        name: 'home',
+        redirect: 'coursesAll',
+        name: 'Home',
         component: () => import('@/components/dashboard/Home.vue')
       },
       {
         path: 'courses',
-        name: 'couses',
-        component: () => import('@/components/dashboard/Courses.vue')
+        name: 'My Courses',
+        component: () => import('@/components/dashboard/courses/Courses.vue')
       },
       {
         path: 'coursesAll',
-        name: 'couses',
-        component: () => import('@/components/dashboard/CoursesAll.vue')
+        name: 'All Courses',
+        component: () => import('@/components/dashboard/courses/CoursesAll.vue')
       },
       {
         path: 'live',
         name: 'live',
-        component: () => import('@/components/dashboard/Courses.vue')
+        component: () => import('@/components/dashboard/Live.vue')
+      },
+      {
+        path: 'subscription',
+        name: 'Subscription Test',
+        component: () => import('@/components/dashboard/SubscriptionTest.vue')
       }
     ]
   }

@@ -1,0 +1,616 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DB801AFA238E537500BE051E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB801AF9238E537500BE051E /* AppDelegate.swift */; };
+		DB801AFC238E537500BE051E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB801AFB238E537500BE051E /* SceneDelegate.swift */; };
+		DB801AFE238E537500BE051E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB801AFD238E537500BE051E /* ViewController.swift */; };
+		DB801B01238E537500BE051E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB801AFF238E537500BE051E /* Main.storyboard */; };
+		DB801B04238E537500BE051E /* cyberchess.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB801B02238E537500BE051E /* cyberchess.xcdatamodeld */; };
+		DB801B09238E537700BE051E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB801B07238E537700BE051E /* LaunchScreen.storyboard */; };
+		DB801B14238E537700BE051E /* cyberchessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB801B13238E537700BE051E /* cyberchessTests.swift */; };
+		DB801B1F238E537700BE051E /* cyberchessUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB801B1E238E537700BE051E /* cyberchessUITests.swift */; };
+		DB801B31238E77EA00BE051E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB801B30238E77EA00BE051E /* WebViewController.swift */; };
+		DB801B35239059FD00BE051E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB801B34239059FD00BE051E /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DB801B10238E537700BE051E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB801AEE238E537500BE051E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB801AF5238E537500BE051E;
+			remoteInfo = cyberchess;
+		};
+		DB801B1B238E537700BE051E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB801AEE238E537500BE051E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB801AF5238E537500BE051E;
+			remoteInfo = cyberchess;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DB801AF6238E537500BE051E /* cyberchess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cyberchess.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB801AF9238E537500BE051E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DB801AFB238E537500BE051E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DB801AFD238E537500BE051E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DB801B00238E537500BE051E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DB801B03238E537500BE051E /* cyberchess.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = cyberchess.xcdatamodel; sourceTree = "<group>"; };
+		DB801B08238E537700BE051E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DB801B0A238E537700BE051E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB801B0F238E537700BE051E /* cyberchessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cyberchessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB801B13238E537700BE051E /* cyberchessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cyberchessTests.swift; sourceTree = "<group>"; };
+		DB801B15238E537700BE051E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB801B1A238E537700BE051E /* cyberchessUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cyberchessUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB801B1E238E537700BE051E /* cyberchessUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cyberchessUITests.swift; sourceTree = "<group>"; };
+		DB801B20238E537700BE051E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB801B30238E77EA00BE051E /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		DB801B34239059FD00BE051E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DB801AF3238E537500BE051E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB801B0C238E537700BE051E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB801B17238E537700BE051E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DB801AED238E537500BE051E = {
+			isa = PBXGroup;
+			children = (
+				DB801AF8238E537500BE051E /* cyberchess */,
+				DB801B12238E537700BE051E /* cyberchessTests */,
+				DB801B1D238E537700BE051E /* cyberchessUITests */,
+				DB801AF7238E537500BE051E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DB801AF7238E537500BE051E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DB801AF6238E537500BE051E /* cyberchess.app */,
+				DB801B0F238E537700BE051E /* cyberchessTests.xctest */,
+				DB801B1A238E537700BE051E /* cyberchessUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DB801AF8238E537500BE051E /* cyberchess */ = {
+			isa = PBXGroup;
+			children = (
+				DB801AF9238E537500BE051E /* AppDelegate.swift */,
+				DB801AFB238E537500BE051E /* SceneDelegate.swift */,
+				DB801AFD238E537500BE051E /* ViewController.swift */,
+				DB801AFF238E537500BE051E /* Main.storyboard */,
+				DB801B07238E537700BE051E /* LaunchScreen.storyboard */,
+				DB801B0A238E537700BE051E /* Info.plist */,
+				DB801B02238E537500BE051E /* cyberchess.xcdatamodeld */,
+				DB801B30238E77EA00BE051E /* WebViewController.swift */,
+				DB801B34239059FD00BE051E /* Assets.xcassets */,
+			);
+			path = cyberchess;
+			sourceTree = "<group>";
+		};
+		DB801B12238E537700BE051E /* cyberchessTests */ = {
+			isa = PBXGroup;
+			children = (
+				DB801B13238E537700BE051E /* cyberchessTests.swift */,
+				DB801B15238E537700BE051E /* Info.plist */,
+			);
+			path = cyberchessTests;
+			sourceTree = "<group>";
+		};
+		DB801B1D238E537700BE051E /* cyberchessUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DB801B1E238E537700BE051E /* cyberchessUITests.swift */,
+				DB801B20238E537700BE051E /* Info.plist */,
+			);
+			path = cyberchessUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DB801AF5238E537500BE051E /* cyberchess */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB801B23238E537700BE051E /* Build configuration list for PBXNativeTarget "cyberchess" */;
+			buildPhases = (
+				DB801AF2238E537500BE051E /* Sources */,
+				DB801AF3238E537500BE051E /* Frameworks */,
+				DB801AF4238E537500BE051E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = cyberchess;
+			productName = cyberchess;
+			productReference = DB801AF6238E537500BE051E /* cyberchess.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DB801B0E238E537700BE051E /* cyberchessTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB801B26238E537700BE051E /* Build configuration list for PBXNativeTarget "cyberchessTests" */;
+			buildPhases = (
+				DB801B0B238E537700BE051E /* Sources */,
+				DB801B0C238E537700BE051E /* Frameworks */,
+				DB801B0D238E537700BE051E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB801B11238E537700BE051E /* PBXTargetDependency */,
+			);
+			name = cyberchessTests;
+			productName = cyberchessTests;
+			productReference = DB801B0F238E537700BE051E /* cyberchessTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DB801B19238E537700BE051E /* cyberchessUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB801B29238E537700BE051E /* Build configuration list for PBXNativeTarget "cyberchessUITests" */;
+			buildPhases = (
+				DB801B16238E537700BE051E /* Sources */,
+				DB801B17238E537700BE051E /* Frameworks */,
+				DB801B18238E537700BE051E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB801B1C238E537700BE051E /* PBXTargetDependency */,
+			);
+			name = cyberchessUITests;
+			productName = cyberchessUITests;
+			productReference = DB801B1A238E537700BE051E /* cyberchessUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DB801AEE238E537500BE051E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+				ORGANIZATIONNAME = "Roger Navarro";
+				TargetAttributes = {
+					DB801AF5238E537500BE051E = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					DB801B0E238E537700BE051E = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = DB801AF5238E537500BE051E;
+					};
+					DB801B19238E537700BE051E = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = DB801AF5238E537500BE051E;
+					};
+				};
+			};
+			buildConfigurationList = DB801AF1238E537500BE051E /* Build configuration list for PBXProject "cyberchess" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DB801AED238E537500BE051E;
+			productRefGroup = DB801AF7238E537500BE051E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DB801AF5238E537500BE051E /* cyberchess */,
+				DB801B0E238E537700BE051E /* cyberchessTests */,
+				DB801B19238E537700BE051E /* cyberchessUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DB801AF4238E537500BE051E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB801B09238E537700BE051E /* LaunchScreen.storyboard in Resources */,
+				DB801B35239059FD00BE051E /* Assets.xcassets in Resources */,
+				DB801B01238E537500BE051E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB801B0D238E537700BE051E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB801B18238E537700BE051E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DB801AF2238E537500BE051E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB801AFE238E537500BE051E /* ViewController.swift in Sources */,
+				DB801AFA238E537500BE051E /* AppDelegate.swift in Sources */,
+				DB801B04238E537500BE051E /* cyberchess.xcdatamodeld in Sources */,
+				DB801B31238E77EA00BE051E /* WebViewController.swift in Sources */,
+				DB801AFC238E537500BE051E /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB801B0B238E537700BE051E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB801B14238E537700BE051E /* cyberchessTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB801B16238E537700BE051E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB801B1F238E537700BE051E /* cyberchessUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DB801B11238E537700BE051E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB801AF5238E537500BE051E /* cyberchess */;
+			targetProxy = DB801B10238E537700BE051E /* PBXContainerItemProxy */;
+		};
+		DB801B1C238E537700BE051E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB801AF5238E537500BE051E /* cyberchess */;
+			targetProxy = DB801B1B238E537700BE051E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DB801AFF238E537500BE051E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB801B00238E537500BE051E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DB801B07238E537700BE051E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB801B08238E537700BE051E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DB801B21238E537700BE051E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DB801B22238E537700BE051E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DB801B24238E537700BE051E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G3B2ACWEFM;
+				INFOPLIST_FILE = cyberchess/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alquimia.cyberchess;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DB801B25238E537700BE051E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G3B2ACWEFM;
+				INFOPLIST_FILE = cyberchess/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alquimia.cyberchess;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DB801B27238E537700BE051E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G3B2ACWEFM;
+				INFOPLIST_FILE = cyberchessTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alquimia.cyberchessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cyberchess.app/cyberchess";
+			};
+			name = Debug;
+		};
+		DB801B28238E537700BE051E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G3B2ACWEFM;
+				INFOPLIST_FILE = cyberchessTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alquimia.cyberchessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cyberchess.app/cyberchess";
+			};
+			name = Release;
+		};
+		DB801B2A238E537700BE051E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G3B2ACWEFM;
+				INFOPLIST_FILE = cyberchessUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alquimia.cyberchessUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = cyberchess;
+			};
+			name = Debug;
+		};
+		DB801B2B238E537700BE051E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G3B2ACWEFM;
+				INFOPLIST_FILE = cyberchessUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alquimia.cyberchessUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = cyberchess;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DB801AF1238E537500BE051E /* Build configuration list for PBXProject "cyberchess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB801B21238E537700BE051E /* Debug */,
+				DB801B22238E537700BE051E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB801B23238E537700BE051E /* Build configuration list for PBXNativeTarget "cyberchess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB801B24238E537700BE051E /* Debug */,
+				DB801B25238E537700BE051E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB801B26238E537700BE051E /* Build configuration list for PBXNativeTarget "cyberchessTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB801B27238E537700BE051E /* Debug */,
+				DB801B28238E537700BE051E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB801B29238E537700BE051E /* Build configuration list for PBXNativeTarget "cyberchessUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB801B2A238E537700BE051E /* Debug */,
+				DB801B2B238E537700BE051E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DB801B02238E537500BE051E /* cyberchess.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DB801B03238E537500BE051E /* cyberchess.xcdatamodel */,
+			);
+			currentVersion = DB801B03238E537500BE051E /* cyberchess.xcdatamodel */;
+			path = cyberchess.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = DB801AEE238E537500BE051E /* Project object */;
+}

@@ -20,7 +20,7 @@ export default {
     //
   }),
   created() {
-    this.$vuetify.theme.dark = true;
+    this.$vuetify.theme.dark = this.$store.getters['settings/darkMode'];
   },
 
   computed: {
@@ -31,15 +31,19 @@ export default {
   
   async mounted() {
     let self = this;
+    // let v= await this.$Amplify.Auth.currentCredentials();
+    // console.log(v.data.IdentityId)
     AmplifyEventBus.$on('authState', async function(authState) {
       if(authState === 'signedIn') {
         const currentSession = await self.$Amplify.Auth.currentSession();
+        console.log(currentSession.idToken.payload['cognito:groups']);
+        // if(currentSession.idToken.payload['cognito:groups'] && currentSession.idToken.payload['cognito:groups'][0] === 'Users') {         
         if(currentSession) {
           self.$store.dispatch('auth/LOGGED_IN');
           self.$router.push('dashboard');
         } else {
-          swal('Error','Something went wrong. Please login again', 'error')
           window.localStorage.clear();
+          swal('Sorry', 'You are not authorized', 'error');
           window.location.href = '/';
         }
       }
@@ -59,7 +63,7 @@ export default {
     width: 100%;
     overflow-y: hidden !important;
     overflow-x: hidden;
-    scrollbar-width: 9x;
+    scrollbar-width: 9px;
     scrollbar-color: rgba(0, 0, 0, 0.1);
     scrollbar-track-color: rgba(0, 0, 0, 0.8);
   }
@@ -68,16 +72,18 @@ export default {
     font-family: 'Open Sans', 'Roboto', sans-serif;
   }
 
-  ::-webkit-scrollbar{
+::-webkit-scrollbar{
    width: 9px; 
-  }
-  ::-webkit-scrollbar-track{
-   -webkit-box-shadow: insert 0 0 5x rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-track{
+   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb{
-   -webkit-box-shadow: insert 0 0 6px rgba(0, 0, 0, 0.8);
+}
+::-webkit-scrollbar-thumb{
    border-radius: 10px; 
-  }
+   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+}
 
 </style>
