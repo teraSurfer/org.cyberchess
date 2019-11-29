@@ -1,0 +1,41 @@
+name: CI & CD
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  test:
+   runs-on: [ubuntu-latest]
+   strategy:
+     matrix:
+       node_version: ['12']
+
+   steps:
+      - uses: actions/checkout@v1
+      - name: install nodejs ${{matrix.node_version}}
+        uses: actions/setup-node@v1
+        with: 
+          node-version: ${{matrix.node_version}}
+          
+      - name: install yarn
+        run: npm i -g yarn
+        
+      - name: yarn install & test
+        run: |
+          yarn install
+          yarn test
+        
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
