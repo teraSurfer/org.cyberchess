@@ -114,6 +114,7 @@ import { API } from 'aws-amplify'
           this.$Amplify.Auth.signOut()
             .then(() => {
               console.info('signout success');
+              window.webkit.messageHandlers.callbackHandler.postMessage("log_out");//Don't delete, iOS app handler
               AmplifyEventBus.$emit('authState', 'signedOut');
               this.$store.dispatch('auth/LOGGED_OUT');
               return this.$router.push('/');
