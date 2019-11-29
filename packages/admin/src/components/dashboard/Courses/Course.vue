@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height dashboard">
+  <v-container class="fill-height mt-8">
     <v-skeleton-loader class="fill-height fill-width" v-if="loading" type="card"></v-skeleton-loader>
     <v-card v-if="!loading" flat class="fill-height fill-width">
       <v-toolbar dense elevation="1">
@@ -84,9 +84,11 @@
                     <v-list-item two-line>
                       <v-list-item-content>
                         <v-subheader class="pl-0 pr-0">Lecture Files:</v-subheader>
-                        <v-list-item-subtitle v-for="(file, index) in lecture.files" :key="index">
-                          <v-btn class="mt-1" @click="goToLecture(file)" outlined>
-                            <v-icon left>fa-file</v-icon>
+                        <v-list-item-subtitle v-for="(file, i) in lecture.files" :key="i">
+                          <v-btn class="mt-1" @click="goToLecture(file, index)" outlined>
+                            <v-icon
+                              left
+                            >{{(file.realName.split(".")[1] === 'mp4') ? "fa-video" : "fa-chess"}}</v-icon>
                             {{file.realName}}
                           </v-btn>
                         </v-list-item-subtitle>
@@ -94,7 +96,7 @@
                     </v-list-item>
                     <v-list-item two-line>
                       <v-list-item-content>
-                        <v-list-item-title>Lecture Status: </v-list-item-title>
+                        <v-list-item-title>Lecture Status:</v-list-item-title>
                         <v-list-item-subtitle>{{lecture.is_listed ? "Listed" : "Unlisted"}}</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
@@ -111,7 +113,7 @@
 
 <script>
 import swal from "sweetalert";
-import UpdateCourse from './UpdateCourse.vue'
+import UpdateCourse from "./UpdateCourse.vue";
 export default {
   data: () => ({
     course_id: "",
@@ -120,7 +122,7 @@ export default {
     loading: false
   }),
   components: {
-      UpdateCourse
+    UpdateCourse
   },
   created() {
     this.course_id = this.$route.params.id;
@@ -154,6 +156,7 @@ export default {
       } catch (err) {
         swal("Sorry!", "Looks like something went wrong", "error");
         console.log(err);
+        this.$router.go(-1)
       }
     },
     loadBaseUrl() {
@@ -177,22 +180,46 @@ export default {
         buttons: true
       }).then(async del => {
         if (del) {
-          const resp = await this.$Amplify.API.del('CyberChessApi', `/courses/object/${this.course.course_id}`);
+          const resp = await this.$Amplify.API.del(
+            "CyberChessApi",
+            `/courses/object/${this.course.course_id}`
+          );
           console.log(resp);
-          swal("Deleted", "Your course has been deleted successfully", "success");
-          this.$router.push('/dashboard/courses')
+          swal(
+            "Deleted",
+            "Your course has been deleted successfully",
+            "success"
+          );
+          this.$router.push("/dashboard/courses");
         }
       });
     },
-    goToLecture(file) {
-        console.log(file)
+    async goToLecture(file, index) {
+      let f = file.realName.split(".");
+      console.log(f[1]);
+      switch (f[1]) {
+        case "pdf": {
+          let url = await this.$Amplify.Storage.get(file.key, {
+            level: this.course.is_listed ? "protected" : "private"
+          });
+          window.open(this.$CyberChess.getCloudUrl(url),"_blank");
+          break;
+        }
+        case "mp4": {
+            await window.sessionStorage.setItem('lecture', JSON.stringify({l:this.course.lectures[index], il: this.course.is_listed, k:file.key}));
+            this.$router.push({name: 'Lecture'});
+            break;
+        }
+        default:
+          break;
+      }
     },
     courseUpdated() {
-        swal({
-            title: "Updated Succesfully",
-            icon: "success"
-        });
-        this.getCourseDetails();
+      swal({
+        title: "Updated Succesfully",
+        icon: "success"
+      });
+      this.getCourseDetails();
     }
   }
 };
