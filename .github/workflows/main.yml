@@ -40,7 +40,7 @@ jobs:
         # npm run test
     
     - name: deploy
-      uses: ./github/actions
+      uses: ./.github/actions
       with:
         amplify_command: publish
         amplify_env: prod
