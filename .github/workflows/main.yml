@@ -38,7 +38,7 @@ jobs:
         AWS_REGION: us-east-1
     
     - name: deploy
-      uses: ambientlight/amplify-cli-action@v0.2.0
+      uses: ./github/actions/amplify-action
       with:
         amplify_command: publish
         amplify_env: prod
