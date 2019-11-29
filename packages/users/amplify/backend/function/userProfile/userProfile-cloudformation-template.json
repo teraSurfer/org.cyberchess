@@ -5,13 +5,13 @@
 		"env": {
 			"Type": "String"
 		},
-		"storageCoursesName": {
+		"storageProfilesName": {
 			"Type": "String",
-			"Default": "storageCoursesName"
+			"Default": "storageProfilesName"
 		},
-		"storageCoursesArn": {
+		"storageProfilesArn": {
 			"Type": "String",
-			"Default": "storageCoursesArn"
+			"Default": "storageProfilesArn"
 		}
 	},
 	"Conditions": {
@@ -36,12 +36,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"Courses",
+						"userProfile",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"Courses",
+									"userProfile",
 									"-",
 									{
 										"Ref": "env"
@@ -71,7 +71,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-admin-roger-90727-deployment",
-					"S3Key": "amplify-builds/courses-557a7342726246494c74-build.zip"
+					"S3Key": "amplify-builds/userProfile-4b2b7a314b564c387437-build.zip"
 				}
 			}
 		},
@@ -81,12 +81,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"adminLambdaRolec32d8fe9",
+						"adminLambdaRolebb88051e",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"adminLambdaRolec32d8fe9",
+									"adminLambdaRolebb88051e",
 									"-",
 									{
 										"Ref": "env"
@@ -165,14 +165,14 @@
 							],
 							"Resource": [
 								{
-									"Ref": "storageCoursesArn"
+									"Ref": "storageProfilesArn"
 								},
 								{
 									"Fn::Join": [
 										"/",
 										[
 											{
-												"Ref": "storageCoursesArn"
+												"Ref": "storageProfilesArn"
 											},
 											"index/*"
 										]

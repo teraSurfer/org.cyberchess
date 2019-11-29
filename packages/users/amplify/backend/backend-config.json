@@ -66,6 +66,21 @@
                     ]
                 }
             ]
+        },
+        "userProfile": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "Profiles",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
         }
     },
     "auth": {
@@ -159,6 +174,14 @@
                 {
                     "category": "function",
                     "resourceName": "subscriptions",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "userProfile",
                     "attributes": [
                         "Name",
                         "Arn"
