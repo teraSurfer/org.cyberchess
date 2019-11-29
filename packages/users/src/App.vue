@@ -31,8 +31,8 @@ export default {
   
   async mounted() {
     let self = this;
-    let v= await this.$Amplify.Auth.currentCredentials();
-    console.log(v.data.IdentityId)
+    // let v= await this.$Amplify.Auth.currentCredentials();
+    // console.log(v.data.IdentityId)
     AmplifyEventBus.$on('authState', async function(authState) {
       if(authState === 'signedIn') {
         const currentSession = await self.$Amplify.Auth.currentSession();

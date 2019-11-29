@@ -167,7 +167,8 @@
                 "subscriptions": {},
                 "Profiles": {},
                 "CyberchessAuth": {},
-                "Courses": {}
+                "Courses": {},
+                "userProfile": {}
             }
         }
     }

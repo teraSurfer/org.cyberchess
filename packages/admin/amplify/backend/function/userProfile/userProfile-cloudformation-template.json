@@ -1,4 +1,4 @@
-    {
+{
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "Lambda resource stack creation using Amplify CLI",
 	"Parameters": {
@@ -70,8 +70,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-admin-sergio-232015-deployment",
-					"S3Key": "amplify-builds/userProfile-3550336d7246575a4964-build.zip"
+					"S3Bucket": "amplify-admin-dev-180336-deployment",
+					"S3Key": "amplify-builds/userProfile-4b2b7a314b564c387437-build.zip"
 				}
 			}
 		},
