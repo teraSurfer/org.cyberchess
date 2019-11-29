@@ -31,6 +31,8 @@ export default {
   
   async mounted() {
     let self = this;
+    let v= await this.$Amplify.Auth.currentCredentials();
+    console.log(v.data.IdentityId)
     AmplifyEventBus.$on('authState', async function(authState) {
       if(authState === 'signedIn') {
         const currentSession = await self.$Amplify.Auth.currentSession();
@@ -60,7 +62,7 @@ export default {
     width: 100%;
     overflow-y: hidden !important;
     overflow-x: hidden;
-    scrollbar-width: 9x;
+    scrollbar-width: 9px;
     scrollbar-color: rgba(0, 0, 0, 0.1);
     scrollbar-track-color: rgba(0, 0, 0, 0.8);
   }
@@ -73,14 +75,14 @@ export default {
    width: 9px; 
 }
 ::-webkit-scrollbar-track{
-   -webkit-box-shadow: insert 0 0 5x rgba(0, 0, 0, 0.1);
+   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
    border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb{
    border-radius: 10px; 
-   -webkit-box-shadow: insert 0 0 6px rgba(0, 0, 0, 0.8);
-   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8)
+   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
 }
 
 </style>

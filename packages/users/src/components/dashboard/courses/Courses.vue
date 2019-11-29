@@ -130,6 +130,27 @@ export default {
     ]
   }),
   methods: {
+        async getCourse() {
+          this.loading = true;
+          try {
+                let myProfileID= "3a5da7b2-578a-461b-a3f5-21e671590e8b";
+                let dynamoKey= `/subscriptions/profile_id/${myProfileID}`; 
+                console.log("dynamoKey: " + dynamoKey);
+        
+                const cognitoId = await this.$Amplify.Auth.currentSession();
+                console.log("cognito ", cognitoId.idToken.payload['cognito:username']);
+                console.log("cognito ", cognitoId.idToken.payload.sub);
+
+                let response= await this.$Amplify.API.get(
+                  "CyberChessApi", 
+                  `/subscriptions/profile_id/${myProfileID}`
+                ); 
+                console.log(response); 
+
+          }catch (err) {
+            console.log(err);
+          }
+        },
 
   },
   components: {

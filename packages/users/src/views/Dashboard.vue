@@ -12,28 +12,28 @@
             </v-toolbar>
             <router-view />
             </v-col>
-            <bottom-nav />
+            <bottom-nav class="fixed-bottom" />
     </v-container>
 </template>
 
 
 <script>
-import Sidebar from '@/components/dashboard/Sidebar.vue'
-import BottomNav from '@/components/dashboard/BottomNav.vue'
+import Sidebar from "@/components/dashboard/Sidebar.vue";
+import BottomNav from "@/components/dashboard/BottomNav.vue";
 export default {
     components: {
         Sidebar,
         BottomNav
     },
     created() {
-        if(this.$route.name === 'Dashboard')        //maybe acha bug
-            this.$router.push('/dashboard/home')
+        if(this.$route.name === "Dashboard")        //maybe acha bug
+            this.$router.push("/dashboard/home")
         // if(this.$route.name !== 'Home')
         //     this.$router.push('./home')      //maybe acha bug
     },
     computed: {
-        getTitle(){
-            return this.$route.name
+        getTitle() {
+            return this.$route.name;
         }
     },
     data: () => ({
