@@ -39,12 +39,12 @@ const routes = [
       },
       {
         path: 'courses',
-        name: 'Courses',
+        name: 'My Courses',
         component: () => import('@/components/dashboard/courses/Courses.vue')
       },
       {
         path: 'coursesAll',
-        name: 'CoursesAll',
+        name: 'All Courses',
         component: () => import('@/components/dashboard/courses/CoursesAll.vue')
       },
       {

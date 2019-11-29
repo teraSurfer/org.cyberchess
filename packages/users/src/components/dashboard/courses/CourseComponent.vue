@@ -1,6 +1,6 @@
-<template>
-
-    <v-container class="pa-4 text-center">  
+<template>   
+    <v-container class="course-component mt-8">
+    <!-- <v-container class="pa-4 text-center">   -->
       <v-hover v-slot:default="{ hover }">
           <v-card class="mx-auto ma-3" max-width="250"> 
 
@@ -53,7 +53,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .v-card {
   transition: opacity .4s ease-in-out;
 }
@@ -65,4 +65,15 @@ export default {
 .show-btns {
   color: rgba(255, 255, 255, 1) !important;
 }
+
+// .course-component {
+//   height: 65vh;
+//   overflow-y: scroll;
+//   overflow-x: hidden;
+// }
+// .fill-width {
+//   width: 100%;
+// }
+
 </style>
+

@@ -69,16 +69,18 @@ export default {
     font-family: 'Open Sans', 'Roboto', sans-serif;
   }
 
-  ::-webkit-scrollbar{
+::-webkit-scrollbar{
    width: 9px; 
-  }
-  ::-webkit-scrollbar-track{
+}
+::-webkit-scrollbar-track{
    -webkit-box-shadow: insert 0 0 5x rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb{
+}
+::-webkit-scrollbar-thumb{
    border-radius: 10px; 
    -webkit-box-shadow: insert 0 0 6px rgba(0, 0, 0, 0.8);
-  }
+   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8)
+}
 
 </style>
