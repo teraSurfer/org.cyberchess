@@ -11,4 +11,7 @@ LABEL "homepage"="https://github.com/teraSurfer/org.cyberchess"
 RUN npm install --global --unsafe-perm @aws-amplify/cli@latest
 
 COPY entrypoint.sh /entrypoint.sh
+
+RUN chmod 777 /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
