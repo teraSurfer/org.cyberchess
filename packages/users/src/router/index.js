@@ -51,6 +51,11 @@ const routes = [
         path: 'live',
         name: 'live',
         component: () => import('@/components/dashboard/Live.vue')
+      },
+      {
+        path: 'subscription',
+        name: 'Subscription Test',
+        component: () => import('@/components/dashboard/SubscriptionTest.vue')
       }
     ]
   }

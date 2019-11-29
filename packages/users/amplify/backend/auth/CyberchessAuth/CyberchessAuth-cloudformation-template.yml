@@ -70,10 +70,10 @@ Parameters:
         
   userpoolClientGenerateSecret:
     Type: String
-            
+                
   userpoolClientRefreshTokenValidity:
-    Type: String
-                      
+    Type: Number
+                  
   userpoolClientWriteAttributes:
     Type: CommaDelimitedList
               
@@ -94,10 +94,7 @@ Parameters:
               
   resourceName:
     Type: String
-                
-  thirdPartyAuth:
-    Type: String
-                    
+                      
   usernameAttributes:
     Type: CommaDelimitedList
         
@@ -115,10 +112,7 @@ Parameters:
                     
   userPoolGroupList:
     Type: CommaDelimitedList
-      
-  adminQueryGroup:
-    Type: String
-                                            
+                                                
   parentStack:
     Type: String
                 
