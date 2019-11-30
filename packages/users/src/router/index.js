@@ -56,7 +56,7 @@ const routes = [
         path: 'subscription',
         name: 'Subscription Test',
         component: () => import('@/components/dashboard/SubscriptionTest.vue')
-      }
+      },
     ]
   }
 ]
