@@ -1,4 +1,4 @@
-name: 'Amplify Deploy'
+name: 'Amplify Deploy - Users'
 on: 
   push:
     branches: 
