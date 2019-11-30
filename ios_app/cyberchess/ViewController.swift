@@ -40,9 +40,11 @@ class ViewController: UIViewController {
         let viewController = segue.destination as! WebViewController
         switch segue.identifier {
         case "User":
-            viewController.urlString = "http://192.168.130.171:8081/dashboard/home"
+//            viewController.urlString = "http://192.168.130.171:8081"
+            viewController.urlString = "https://app.cyberchess.org"
         case "Instructor":
-            viewController.urlString = "http://192.168.130.171:8080/dashboard/home"
+//            viewController.urlString = "http://192.168.130.171:8080"
+            viewController.urlString = "https://admin.cyberchess.org"
         default:
             return
         }
