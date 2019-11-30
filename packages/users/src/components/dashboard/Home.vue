@@ -22,10 +22,13 @@
           <v-card-text>
             <h4 class="mb-0">{{course.course_name}}</h4>
             <p class="mb-0">{{course.excerpt}}</p>
+            <p class="mb-0">{{course.course_id}}</p>
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
+    <button v-on:click="loadCoursesPrev()">Previous</button><br/>
+    <button v-on:click="loadCoursesNext()">Next</button>
   </v-container>
 </template>
 
@@ -34,6 +37,11 @@ export default {
   data: () => ({
     allCourses: [],
     userInfo: '',
+    lastkeys:{course_id:''},
+    last_evaluated_key_for_page: [{course_id: ''}],
+    cur_page: 0,
+    
+    
   }),
   props: {
     flag: Boolean
@@ -41,28 +49,66 @@ export default {
   watch: {
     flag(n) {
       console.log(n)
-      this.loadCourses()
+      this.loadCoursesNext()
     }
   },
   async created() {
-    this.loadCourses()
+    this.loadCoursesNext()
+    console.log(this.allCourses)
   },
   methods: {
-    async loadCourses() {
+    async loadCoursesNext() {
       try {
+        
         this.allCourses = [];
         this.userInfo =  await this.$Amplify.Auth.currentUserInfo();
         this.userInfo = this.userInfo.id
         //const cognitoId = await this.$Amplify.Auth.currentSession();
-        const response = await this.$Amplify.API.get(
-          "CyberChessApi",
-          '/courses'
-        );
+        let api = "CyberChessApi";
+        let params = `/courses?limit=5&last_key=${this.lastkeys.course_id}`;
+        const response = await this.$Amplify.API.get(api, params);
         console.log(response)
+        this.cur_page += 1;
+        //alert(JSON.stringify(response))
+        //alert(JSON.stringify(params))
+        this.last_evaluated_key_for_page.push(JSON.parse(JSON.stringify(this.lastkeys)));
+        this.lastkeys.course_id = response.LastEvaluatedKey.course_id
+        //alert(this.lastkeys.course_id)
+        console.log(this.lastkeys.course_id)
         let re = response.Items;
         console.log(re)
           re = re.map(async val => {
-            const thumbUrl = await this.$Amplify.Storage.get(val.thumbnail.key, {level: (val.is_listed) ? 'protected' : 'private',identityId :re[0].instructor_id})
+            const thumbUrl = await this.$Amplify.Storage.get(val.thumbnail.key, {level:'protected',identityId :val.instructor_id})
+            val.thumbnail.key = this.$CyberChess.getCloudUrl(thumbUrl);
+            return val;
+          })
+        Promise.allSettled(re).then(res => res.forEach(element => {
+          if(element.status === 'fulfilled') this.allCourses.push(element.value);
+        }))
+      } catch(err) {
+          console.log(err)
+      }
+    },
+
+    async loadCoursesPrev() {
+      try {
+        let last_key = this.last_evaluated_key_for_page[this.cur_page - 1];
+        this.cur_page -= 1;
+        this.allCourses = [];
+        this.userInfo =  await this.$Amplify.Auth.currentUserInfo();
+        this.userInfo = this.userInfo.id
+        //const cognitoId = await this.$Amplify.Auth.currentSession();
+        let api = "CyberChessApi";
+        let params = `/courses?limit=5&last_key=${last_key.course_id}`;
+        const response = await this.$Amplify.API.get(api, params);
+        console.log(response)
+        //alert(JSON.stringify(response))
+        this.lastkeys.course_id = response.LastEvaluatedKey.course_id
+        console.log(this.lastkeys.course_id)
+        let re = response.Items;
+        console.log(re)
+          re = re.map(async val => {
+            const thumbUrl = await this.$Amplify.Storage.get(val.thumbnail.key, {level:'protected',identityId :val.instructor_id})
             val.thumbnail.key = this.$CyberChess.getCloudUrl(thumbUrl);
             return val;
           })
@@ -74,9 +120,12 @@ export default {
       }
     },
     toCourse() {
+
       
       this.$router.push('/dashboard/Home')
-    }
+     
+    },
+    
   }
 };
 </script>

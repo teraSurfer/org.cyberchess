@@ -23,7 +23,7 @@ export default {
     },
     created() {
         if(this.$route.name !== 'Home')
-            this.$router.push('./home')      //maybe acha bug
+            this.$router.push('/dashboard/home')      //maybe acha bug
     },
     computed: {
         getBreadcrumb(){

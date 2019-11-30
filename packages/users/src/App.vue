@@ -36,7 +36,7 @@ export default {
         const currentSession = await self.$Amplify.Auth.currentSession();
         if(currentSession) {
           self.$store.dispatch('auth/LOGGED_IN');
-          self.$router.push('dashboard');
+          self.$router.push('/dashboard');
         } else {
           swal('Error','Something went wrong. Please login again', 'error')
           window.localStorage.clear();
