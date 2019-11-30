@@ -16,6 +16,7 @@
   </v-container>
 </template>
 
+
 <script>
 import Sidebar from "@/components/dashboard/Sidebar.vue";
 import BottomNav from "@/components/dashboard/BottomNav.vue";

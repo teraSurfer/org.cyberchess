@@ -60,7 +60,7 @@
           </v-list-item>
         </v-list>
        </v-card>
-       </v-dialog>
+      </v-dialog>
     </v-row>
 </template>
 
@@ -116,7 +116,7 @@ import { API } from 'aws-amplify'
               return this.$router.push('/');
             })
             .catch(e => console.log(e));
-            window.webkit.messageHandlers.callbackHandler.postMessage("log_out");//Don't delete, iOS app handler
+          window.webkit.messageHandlers.callbackHandler.postMessage("log_out");//Don't delete, iOS app handler
         }
     },
     created () {
