@@ -2,10 +2,11 @@
     <v-container class="mt-8">
     <v-skeleton-loader class="fill-height fill-width" v-if="loading" type="card"></v-skeleton-loader>  
         <v-hover v-slot:default="{ hover }">
-            <v-card v-if="!loading" class="mx-auto ma-3" max-width="250"> 
-
-              <v-card class="thumbnail" @click.stop.prevent="toCourse(course.course_id)"   hover :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }" >
-                  <v-img
+            <!-- <v-card v-if="!loading" class="mx-auto ma-3" max-width="250">  -->
+            
+            <v-card class="mx-auto ma-3" max-width="250">  
+              <v-card class="thumbnail"   hoverS:elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }" >
+                  <v-img  @click.stop.prevent="toCourse(course.course_id)" 
                     :src="course.thumbnail.key"
                     class="white--text align-end"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
@@ -32,7 +33,6 @@
 </template>
 
 <script>
-// import PlayCourse from './PlayCourse.vue'
 export default {
     props: {
         course: Object,
@@ -44,12 +44,9 @@ export default {
     }),
     methods: {
        toCourse(course) {
-         console.log("KKKKK111");
-         console.log(course);
-         this.loading=true
-          // if(course)
-           this.$router.push(`/dashboard/courses/${course}`)
-          // this.$router.push("/dashboard/courses/playcourse");  ///${course}`)
+          this.loading=true
+          if(course)
+              this.$router.push(`/dashboard/courses/${course}`)
         },
     }
 }

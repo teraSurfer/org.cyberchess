@@ -32,7 +32,6 @@ export default {
                 const cognitoId = await this.$Amplify.Auth.currentSession();
                 //console.log("cognito ", cognitoId.idToken.payload['cognito:username']);
                 this.userId = cognitoId.idToken.payload['cognito:username']
-                // let myProfileID= "3a5da7b2-578a-461b-a3f5-21e671590e8b";
                 let dynamoKey= `/subscriptions/profile_id/${this.userId}`; 
                 console.log("dynamoKey: " + dynamoKey);
         
@@ -40,11 +39,6 @@ export default {
                   "CyberChessApi", 
                    dynamoKey
                 ); 
-                // this.myCourses = response.courses;
-                // console.log(this.myCourses);
-                console.log("--->")
-                console.log(response.courses);
-                console.log("--->")
               
                 let re = response.courses;
                 re = re.map(async val => {
