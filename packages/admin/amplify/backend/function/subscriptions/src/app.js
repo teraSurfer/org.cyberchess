@@ -120,7 +120,7 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
                 "#I": "instructor", 
                 "#II": "instructor_id",
                 "#SS": "course_id",
-                "#L": "is_listed", 
+                "#L": "is_listed",
                 "#T": "thumbnail",
                 "#N": "course_name",
                 "#E": "excerpt",
