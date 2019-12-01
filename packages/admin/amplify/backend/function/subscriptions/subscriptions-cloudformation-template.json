@@ -85,7 +85,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-admin-dev-180336-deployment",
-					"S3Key": "amplify-builds/subscriptions-655a57713458417a724c-build.zip"
+					"S3Key": "amplify-builds/subscriptions-31544467397359494b73-build.zip"
 				}
 			}
 		},

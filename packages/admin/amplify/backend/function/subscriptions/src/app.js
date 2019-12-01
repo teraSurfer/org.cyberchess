@@ -105,13 +105,15 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
      } 
      else {
           let ExpressionAttributeValues ={}; 
-          let FilterExpression = "";
+          let FilterExpression = "(";
           data.Items.forEach(function(element, x) {
-              ExpressionAttributeValues[':course_id' +  x]=  element.course_id 
-              FilterExpression = FilterExpression + "#SS = :course_id" + x + (x < data.Items.length-1 ? " Or " : ""); 
+            ExpressionAttributeValues[':course_id' +  x]=  element.course_id;
+            if (x === data.Items.length-1){
+                ExpressionAttributeValues[':is_listed']=  true; }
+            FilterExpression = FilterExpression + "#SS = :course_id" + x + (x < data.Items.length-1 ? " Or " : ") AND  #L = :is_listed"); 
           });
-          // console.log(ExpressionAttributeValues);
-          // console.log(FilterExpression)
+          console.log(ExpressionAttributeValues);
+          console.log(FilterExpression)
           let query2Params = {
             TableName: table2Name,
               ProjectionExpression:   "#U, #E, #N, #T, #L, #SS, #II, #I",  
