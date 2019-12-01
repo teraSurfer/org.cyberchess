@@ -41,15 +41,19 @@ export default {
                 ); 
               
                 let re = response.courses;
+
                 re = re.map(async val => {
-                  const thumbUrl = await this.$Amplify.Storage.get(val.thumbnail.key, {level: (val.is_listed) ? 'protected' : 'private'})
+                  const thumbUrl = await this.$Amplify.Storage.get(val.thumbnail.key, {level:'protected',identityId :val.instructor_id})
                   val.thumbnail.key = this.$CyberChess.getCloudUrl(thumbUrl);
                   return val;
                 })
+
                 Promise.allSettled(re).then(res => res.forEach(element => {
                   if(element.status === 'fulfilled') this.myCourses.push(element.value);
                 })) 
                 console.log(this.myCourses);
+                console.log("---ACHA--->")
+                console.log(this.$Amplify.Storage);
 
           }catch (err) {
               console.log(err);

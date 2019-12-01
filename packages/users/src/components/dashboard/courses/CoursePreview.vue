@@ -14,10 +14,10 @@
                   ></v-img>
               </v-card>
               <v-card-title>{{course.course_name}}</v-card-title>
-              <v-card-subtitle>Instructor: {{course.instructor}}</v-card-subtitle>
-              <v-card-text>updated: {{course.updated_at}}</v-card-text>
+              <!-- <v-card-subtitle>Instructor: {{course.instructor}}</v-card-subtitle>
+              <v-card-text>updated: {{course.updated_at}}</v-card-text> -->
               <v-card-actions>
-                    <v-btn text @click="expand = !expand">Excerpts</v-btn>
+                    <v-btn text @click="expand = !expand">Description</v-btn>
                     <v-spacer></v-spacer>
                 </v-card-actions>
 
