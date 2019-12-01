@@ -37,8 +37,7 @@ export default {
       if(authState === 'signedIn') {
         const currentSession = await self.$Amplify.Auth.currentSession();
         console.log(currentSession.idToken.payload['cognito:groups']);
-        if(currentSession.idToken.payload['cognito:groups'] && currentSession.idToken.payload['cognito:groups'][0] === 'Users') {         
-        // if(currentSession) {
+        if(currentSession) {
           self.$store.dispatch('auth/LOGGED_IN');
           self.$router.push('dashboard');
         } else {
