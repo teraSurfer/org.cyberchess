@@ -41,6 +41,8 @@ export default {
                 ); 
               
                 let re = response.courses;
+                console.log(re)
+
 
                 re = re.map(async val => {
                   const thumbUrl = await this.$Amplify.Storage.get(val.thumbnail.key, {level:'protected',identityId :val.instructor_id})
