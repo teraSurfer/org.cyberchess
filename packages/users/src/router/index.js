@@ -33,7 +33,6 @@ const routes = [
     children: [ 
       {
         path: 'home',
-        redirect: 'coursesAll',
         name: 'Home',
         component: () => import('@/components/dashboard/Home.vue')
       },
@@ -43,13 +42,18 @@ const routes = [
         component: () => import('@/components/dashboard/courses/Courses.vue')
       },
       {
+        path: 'courses/:id',
+        name: 'Course',
+        component: () => import('@/components/dashboard/courses/Course.vue')
+      },
+      {
         path: 'coursesAll',
         name: 'All Courses',
         component: () => import('@/components/dashboard/courses/CoursesAll.vue')
       },
       {
         path: 'live',
-        name: 'live',
+        name: 'Live',
         component: () => import('@/components/dashboard/Live.vue')
       },
       {
