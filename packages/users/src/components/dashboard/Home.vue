@@ -27,8 +27,19 @@
         </v-card>
       </v-col>
     </v-row>
-    <button v-on:click="loadCoursesPrev()">Previous</button><br/>
-    <button v-on:click="loadCoursesNext()">Next</button>
+    <!--<button v-on:click="loadCoursesPrev()">Previous</button><br/>-->
+    <!--<button v-on:click="loadCoursesNext()">Next</button>-->
+    <v-layout>
+     <v-btn  v-on:click="loadCoursesPrev()" :disabled="cur_page==1">
+     <span right>Prev</span>
+     <v-icon right>fa-chevron-left</v-icon>
+    </v-btn>
+    <v-spacer></v-spacer>
+     <v-btn  v-on:click="loadCoursesNext()" :disabled="lastkeys.course_id==''">
+     <span right>Next</span>
+     <v-icon right>fa-chevron-right</v-icon>
+    </v-btn>
+    </v-layout>
   </v-container>
 </template>
 
@@ -70,11 +81,16 @@ export default {
         console.log(response)
         this.cur_page += 1;
         //alert(JSON.stringify(response))
-        //alert(JSON.stringify(params))
         this.last_evaluated_key_for_page.push(JSON.parse(JSON.stringify(this.lastkeys)));
-        this.lastkeys.course_id = response.LastEvaluatedKey.course_id
-        //alert(this.lastkeys.course_id)
-        console.log(this.lastkeys.course_id)
+        if (response.LastEvaluatedKey)
+        {
+          this.lastkeys.course_id = response.LastEvaluatedKey.course_id
+          console.log(this.lastkeys.course_id)
+        }
+        else
+        {
+          this.lastkeys = {course_id: ''}
+        }
         let re = response.Items;
         console.log(re)
           re = re.map(async val => {
@@ -87,6 +103,7 @@ export default {
         }))
       } catch(err) {
           console.log(err)
+          alert(err)
       }
     },
 
@@ -122,7 +139,7 @@ export default {
     toCourse() {
 
       
-      this.$router.push('/dashboard/Home')
+      //this.$router.push('/dashboard/Home')
      
     },
     
