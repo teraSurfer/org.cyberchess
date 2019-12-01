@@ -5,16 +5,16 @@
                 <v-img src="../../assets/logo.svg" width="50"></v-img>
             </v-list-item-icon>
         </v-list-item>
-        <v-divider></v-divider>
+        <v-divider />
         <v-list-item>
             <v-list-item-icon>
-                <profile />  
+                <profile />
             </v-list-item-icon>
         </v-list-item>
-        
-        <v-list-item>
+
+        <v-list-item >
             <v-list-item-icon>
-                <settings />  
+                <settings />
             </v-list-item-icon>
         </v-list-item>
     </v-navigation-drawer>
@@ -24,6 +24,7 @@
 import Settings from './Settings.vue'
 import Profile from './Profile.vue'
 export default {
+    // name="sidebar",
     components: {
         Settings,
         Profile
@@ -52,4 +53,3 @@ export default {
 
 <style lang="scss">
 </style>
-
