@@ -52,6 +52,11 @@ const routes = [
         component: () => import('@/components/dashboard/courses/CoursesAll.vue')
       },
       {
+        path: 'lectures',
+        name: 'Lecture',
+        component: () => import('@/components/dashboard/courses/Lectures.vue')
+      },
+      {
         path: 'live',
         name: 'Live',
         component: () => import('@/components/dashboard/Live.vue')
