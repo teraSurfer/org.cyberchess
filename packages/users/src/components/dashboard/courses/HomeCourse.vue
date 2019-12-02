@@ -39,7 +39,7 @@
             <v-list-item two-line>
               <v-list-item-content>
                 <v-list-item-title>Thumbail:</v-list-item-title>
-                <v-img max-width="250px" :src="course.thumbnail.url"></v-img>
+                <v-img max-width="250px" :src="course.thumbnail.key"></v-img>
               </v-list-item-content>
             </v-list-item>
             </v-card-text>
@@ -64,7 +64,7 @@ export default {
   },
   created() {
     this.course_id = this.$route.params.id;
-    this.loadBaseUrl();
+    //this.loadBaseUrl();
     this.getCourseDetails();
   },
   methods: {
@@ -79,26 +79,28 @@ export default {
         let thumbUrl = await this.$Amplify.Storage.get(response.thumbnail.key, {
           level: 'protected',identityId: response.instructor_id
         });
+        response.thumbnail.key = this.$CyberChess.getCloudUrl(thumbUrl);
         // get thumbnail
-        response.thumbnail.url = thumbUrl
+        /*response.thumbnail.url = thumbUrl
           .split(
             "https://" +
               this.$Amplify.Storage._config.AWSS3.bucket +
               ".s3.amazonaws.com"
           )
-          .join(this.baseUrl);
+          .join(this.baseUrl);*/
 
         
         console.log(response.lectures);
         this.course = response;
         this.loading = false;
+        return response.thumbnail.key
       } catch (err) {
         swal("Sorry!", "Looks like something went wrong", "error");
         console.log(err);
         this.$router.go(-1)
       }
     },
-    loadBaseUrl() {
+    /*loadBaseUrl() {
       const urls = {
         dev: "https://d15qyykdkts3kc.cloudfront.net",
         jhrenv: "https://d217hs3emk80ln.cloudfront.net"
@@ -106,7 +108,7 @@ export default {
       let bucketName = this.$Amplify.Storage._config.AWSS3.bucket;
       let env = bucketName.split("-");
       this.baseUrl = urls[env[env.length - 1]];
-    },
+    },*/
     back() {
       this.$router.go(-1);
     },
