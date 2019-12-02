@@ -115,12 +115,12 @@ export default {
             level: 'protected',identityId :response[0].instructor_id
           });
           // get thumbnail address from S3 bucket to CloudFront
-          console.log("--->" + thumbUrl)
+          // console.log("--->" + thumbUrl)
           response[0].thumbnail.url = this.$CyberChess.getCloudUrl(thumbUrl);
-          console.log("--->" + response[0].thumbnail.url)
+          // console.log("--->" + response[0].thumbnail.url)
           // get lectures
           this.course = response[0];
-          console.log(this.course.lectures);
+          // console.log(this.course.lectures);
           this.loading = false;
       } catch (err) {
           swal("Sorry!", "Looks like something went wrong", "error");
