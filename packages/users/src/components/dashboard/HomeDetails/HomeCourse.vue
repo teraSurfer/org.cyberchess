@@ -80,16 +80,6 @@ export default {
           level: 'protected',identityId: response.instructor_id
         });
         response.thumbnail.key = this.$CyberChess.getCloudUrl(thumbUrl);
-        // get thumbnail
-        /*response.thumbnail.url = thumbUrl
-          .split(
-            "https://" +
-              this.$Amplify.Storage._config.AWSS3.bucket +
-              ".s3.amazonaws.com"
-          )
-          .join(this.baseUrl);*/
-
-        
         console.log(response.lectures);
         this.course = response;
         this.loading = false;
@@ -100,15 +90,7 @@ export default {
         this.$router.go(-1)
       }
     },
-    /*loadBaseUrl() {
-      const urls = {
-        dev: "https://d15qyykdkts3kc.cloudfront.net",
-        jhrenv: "https://d217hs3emk80ln.cloudfront.net"
-      };
-      let bucketName = this.$Amplify.Storage._config.AWSS3.bucket;
-      let env = bucketName.split("-");
-      this.baseUrl = urls[env[env.length - 1]];
-    },*/
+    
     back() {
       this.$router.go(-1);
     },

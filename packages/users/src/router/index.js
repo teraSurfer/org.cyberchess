@@ -47,9 +47,9 @@ const routes = [
         component: () => import('@/components/dashboard/courses/Course.vue')
       },
       {
-        path: 'courses/:id',
+        path: 'HomeDetails/:id',
         name: 'HomeCourse',
-        component: () => import('@/components/dashboard/courses/HomeCourse.vue')
+        component: () => import('@/components/dashboard/HomeDetails/HomeCourse.vue')
       },
       {
         path: 'coursesAll',

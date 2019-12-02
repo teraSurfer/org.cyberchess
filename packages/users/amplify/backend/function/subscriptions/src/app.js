@@ -134,11 +134,7 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
                 res.statusCode = 500;
                 res.json({error: 'Could not load items: ' + err});
             } else {
-<<<<<<< HEAD
-                console.log('here-6--->data2.Items')
-=======
                 // console.log('here-6--->data2.Items')
->>>>>>> dev
                 console.log(data2.Items)
                 // res.json({subscriptions:data.Items, courses:data2.Items});
                 res.json({courses:data2.Items});

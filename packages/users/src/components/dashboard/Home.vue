@@ -138,7 +138,7 @@ export default {
     },
     toCourse(course) {
      if(course)
-      this.$router.push(`/dashboard/courses/${course}`)
+      this.$router.push(`/dashboard/HomeDetails/${course}`)
     },
     
   }
