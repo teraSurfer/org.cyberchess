@@ -71,7 +71,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-admin-roger-90727-deployment",
-					"S3Key": "amplify-builds/courses-557a7342726246494c74-build.zip"
+					"S3Key": "amplify-builds/courses-6332554a447831483243-build.zip"
 				}
 			}
 		},
