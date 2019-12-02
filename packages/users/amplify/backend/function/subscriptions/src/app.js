@@ -114,13 +114,17 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
           // console.log(FilterExpression)
           let query2Params = {
             TableName: table2Name,
-              ProjectionExpression:   "#N, #T, #SS, #I",  
+              ProjectionExpression:  "#U, #E, #N, #T, #L, #SS, #II, #I",
               FilterExpression: FilterExpression,
               ExpressionAttributeNames: {
-                "#I": "instructor",
+                "#I": "instructor", 
+                "#II": "instructor_id",
                 "#SS": "course_id",
+                "#L": "is_listed", 
                 "#T": "thumbnail",
-                "#N": "name" 
+                "#N": "course_name",
+                "#E": "excerpt",
+                "#U": "updated_at"
               },
               ExpressionAttributeValues: ExpressionAttributeValues,
           } 
@@ -130,7 +134,7 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
                 res.statusCode = 500;
                 res.json({error: 'Could not load items: ' + err});
             } else {
-                console.log('here-6--->data2.Items')
+                // console.log('here-6--->data2.Items')
                 console.log(data2.Items)
                 // res.json({subscriptions:data.Items, courses:data2.Items});
                 res.json({courses:data2.Items});

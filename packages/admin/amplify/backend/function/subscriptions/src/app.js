@@ -86,16 +86,16 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
   let queryParams = {
       TableName: tableName,
       ProjectionExpression: "#I", // "#CID, #P, #I, #L",  
-      FilterExpression: "#P = :profile_id AND  #L = :isDeleted",
+      FilterExpression: "#P = :profile_id AND  #L = :is_deleted",
       ExpressionAttributeNames: {
         //  "#CID": "subscription_id",
         "#P": "profile_id",
         "#I": "course_id",
-        "#L": "isDeleted",
+        "#L": "is_deleted",
       },
       ExpressionAttributeValues: {
         ":profile_id": req.params.id,
-        ":isDeleted": false
+        ":is_deleted": false
       },
   }
   dynamodb.scan(queryParams, (err, data) => {
@@ -105,22 +105,28 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
      } 
      else {
           let ExpressionAttributeValues ={}; 
-          let FilterExpression = "";
+          let FilterExpression = "(";
           data.Items.forEach(function(element, x) {
-              ExpressionAttributeValues[':course_id' +  x]=  element.course_id 
-              FilterExpression = FilterExpression + "#SS = :course_id" + x + (x < data.Items.length-1 ? " Or " : ""); 
+            ExpressionAttributeValues[':course_id' +  x]=  element.course_id;
+            if (x === data.Items.length-1){
+                ExpressionAttributeValues[':is_listed']=  true; }
+            FilterExpression = FilterExpression + "#SS = :course_id" + x + (x < data.Items.length-1 ? " Or " : ") AND  #L = :is_listed"); 
           });
-          // console.log(ExpressionAttributeValues);
-          // console.log(FilterExpression)
+          console.log(ExpressionAttributeValues);
+          console.log(FilterExpression)
           let query2Params = {
             TableName: table2Name,
-              ProjectionExpression:   "#N, #T, #SS, #I",  
+              ProjectionExpression:   "#U, #E, #N, #T, #L, #SS, #II, #I",  
               FilterExpression: FilterExpression,
               ExpressionAttributeNames: {
-                "#I": "instructor",
+                "#I": "instructor", 
+                "#II": "instructor_id",
                 "#SS": "course_id",
+                "#L": "is_listed",
                 "#T": "thumbnail",
-                "#N": "name" 
+                "#N": "course_name",
+                "#E": "excerpt",
+                "#U": "updated_at"
               },
               ExpressionAttributeValues: ExpressionAttributeValues,
           } 
@@ -130,7 +136,7 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
                 res.statusCode = 500;
                 res.json({error: 'Could not load items: ' + err});
             } else {
-                console.log('here-6--->data2.Items')
+                // console.log('here-6--->data2.Items')
                 console.log(data2.Items)
                 // res.json({subscriptions:data.Items, courses:data2.Items});
                 res.json({courses:data2.Items});
@@ -156,7 +162,7 @@ app.get(path + '/course_id/:id'  , function(req, res) {
         "#CID": "subscription_id",
         "#P": "profile_id",
         "#I": "course_id",
-        "#L": "isDeleted",
+        "#L": "is_deleted",
     },
     ExpressionAttributeValues: {
       ":course_id": req.params.id
