@@ -13,8 +13,18 @@
             <span>Back</span>
           </v-tooltip>
           <v-spacer />
-          <v-toolbar-title>{{course.course_name}}</v-toolbar-title>
+            <v-toolbar-title>{{course.course_name}}</v-toolbar-title>
           <v-spacer />
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn
+              :loading="isSubscribing"
+              v-bind:color="isSubscribed()===false ? 'success' : 'warning'"
+              @click="toggleSubscribe()">
+                <span class="hidden-sm-and-down" left>{{subscribe_btn.label}}</span>
+              </v-btn>
+            </template>
+          </v-tooltip>
       </v-toolbar>
       <v-card-text>
 
@@ -96,7 +106,11 @@ export default {
   data: () => ({
     course_id: "",
     course: {},
-    loading: false
+    loading: false,
+    isSubscribing: false,
+    subscribe_btn: {
+        label: 'Subscribe'
+    }
   }),
   created() {
     this.course_id = this.$route.params.id;
@@ -156,6 +170,42 @@ export default {
           break;
       }
     },
+    async subscribe() {
+      try {
+        this.isSubscribing = true;
+        let subscription = {};
+        subscription.profile_id = await this.$Amplify.Auth.currentSession();
+        subscription.profile_id = subscription.profile_id.idToken.payload.sub;
+        subscription.course_id = this.course_id;
+        subscription.is_deleted = false;
+        const result = await this.$Amplify.API.post("CyberChessApi", "/subscriptions", {
+            body: { ...subscription }
+        });
+        console.log("Subscription succeed:");
+        console.log(result);
+        this.subscription = {};
+        this.isSubscribing = false;
+        swal('Success', 'Congratulations! you subscribed to this course.', 'success')
+      } catch (err) {
+        console.log(err);
+        swal(
+            "Sorry!",
+            "There was an error while subscribing the course. Please try again.",
+            "error"
+        )
+      }
+    },
+    toggleSubscribe() {
+      if (this.isSubscribed()) {
+        this.unsubscribe();
+      } else {
+        this.subscribe();
+      }
+    },
+    isSubscribed() {
+      this.subscribe_btn.label = "Subscribe"
+      return false;
+    }
   }
 };
 </script>
