@@ -86,16 +86,16 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
   let queryParams = {
       TableName: tableName,
       ProjectionExpression: "#I", // "#CID, #P, #I, #L",  
-      FilterExpression: "#P = :profile_id AND  #L = :isDeleted",
+      FilterExpression: "#P = :profile_id AND  #L = :is_deleted",
       ExpressionAttributeNames: {
         //  "#CID": "subscription_id",
         "#P": "profile_id",
         "#I": "course_id",
-        "#L": "isDeleted",
+        "#L": "is_deleted",
       },
       ExpressionAttributeValues: {
         ":profile_id": req.params.id,
-        ":isDeleted": false
+        ":is_deleted": false
       },
   }
   dynamodb.scan(queryParams, (err, data) => {
@@ -162,7 +162,7 @@ app.get(path + '/course_id/:id'  , function(req, res) {
         "#CID": "subscription_id",
         "#P": "profile_id",
         "#I": "course_id",
-        "#L": "isDeleted",
+        "#L": "is_deleted",
     },
     ExpressionAttributeValues: {
       ":course_id": req.params.id
