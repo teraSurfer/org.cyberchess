@@ -162,7 +162,7 @@ app.get(path + '/course_id/:id'  , function(req, res) {
         "#CID": "subscription_id",
         "#P": "profile_id",
         "#I": "course_id",
-        "#L": "isDeleted",
+        "#L": "is_deleted",
     },
     ExpressionAttributeValues: {
       ":course_id": req.params.id
