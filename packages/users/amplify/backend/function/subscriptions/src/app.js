@@ -19,6 +19,7 @@ const AWS = require('aws-sdk')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 var bodyParser = require('body-parser')
 var express = require('express')
+const uuidV4 = require('uuid/v4')
 
 AWS.config.update({ region: process.env.TABLE_REGION });
 
@@ -113,13 +114,17 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
           // console.log(FilterExpression)
           let query2Params = {
             TableName: table2Name,
-              ProjectionExpression:   "#N, #T, #SS, #I",  
+              ProjectionExpression:  "#U, #E, #N, #T, #L, #SS, #II, #I",
               FilterExpression: FilterExpression,
               ExpressionAttributeNames: {
-                "#I": "instructor",
+                "#I": "instructor", 
+                "#II": "instructor_id",
                 "#SS": "course_id",
+                "#L": "is_listed", 
                 "#T": "thumbnail",
-                "#N": "name" 
+                "#N": "course_name",
+                "#E": "excerpt",
+                "#U": "updated_at"
               },
               ExpressionAttributeValues: ExpressionAttributeValues,
           } 
@@ -129,7 +134,11 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
                 res.statusCode = 500;
                 res.json({error: 'Could not load items: ' + err});
             } else {
+<<<<<<< HEAD
                 console.log('here-6--->data2.Items')
+=======
+                // console.log('here-6--->data2.Items')
+>>>>>>> dev
                 console.log(data2.Items)
                 // res.json({subscriptions:data.Items, courses:data2.Items});
                 res.json({courses:data2.Items});
@@ -298,9 +307,13 @@ app.post(path, function(req, res) {
     req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
 
+  let i = {
+    subscription_id: uuidV4(),
+    ...req.body
+  }
   let putItemParams = {
     TableName: tableName,
-    Item: req.body
+    Item: i
   }
   dynamodb.put(putItemParams, (err, data) => {
     if(err) {
@@ -338,16 +351,24 @@ app.delete(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
     }
   }
 
-  let removeItemParams = {
+  let deleteParams = {
     TableName: tableName,
+    ExpressionAttributeNames: {
+      "#AT": "is_deleted",
+     }, 
+     ExpressionAttributeValues: {
+      ":t": true
+     },
+    UpdateExpression: "SET #AT = :t",
     Key: params
   }
-  dynamodb.delete(removeItemParams, (err, data)=> {
+
+  dynamodb.update(deleteParams, function(err, data) {
     if(err) {
       res.statusCode = 500;
-      res.json({error: err, url: req.url});
-    } else {
-      res.json({url: req.url, data: data});
+      res.json({error: err, url: req.url, body: req.body});
+    } else{
+      res.json({success: '(update) delete call succeed!', url: req.url, data: data})
     }
   });
 });

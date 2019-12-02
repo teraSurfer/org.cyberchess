@@ -68,15 +68,15 @@ const convertUrlType = (param, type) => {
 app.get(path, function (req, res) {
   const lastKey = (req.query.last_key !== '') ? req.query.last_key : false;
   const limit = (req.query.limit !== '') ? req.query.limit : 10;
-  const scanforward = req.query.scanforward;
   let scanParams = {
     TableName: tableName,
     Limit: limit,
     Count: true,
-    ProjectionExpression: "#N, #T, #L, #CID, #I, #E, #C, #U",
+    ProjectionExpression: "#N, #T, #L, #CID, #I, #E, #C, #U, #II",
     FilterExpression: "#D <> :D",
     ExpressionAttributeNames: {
       "#I": "instructor",
+      "#II": "instructor_id",
       "#CID": "course_id",
       "#L": "is_listed",
       "#T": "thumbnail",
@@ -92,10 +92,6 @@ app.get(path, function (req, res) {
   }
   if(lastKey) { 
     scanParams.ExclusiveStartKey = { "course_id": lastKey };
-  }
-  if (scanbackwards)
-  {
-    scanParams.ScanIndexForward = scanforward;
   }
   console.log(scanParams)
   dynamodb.scan(scanParams, (err, data) => {

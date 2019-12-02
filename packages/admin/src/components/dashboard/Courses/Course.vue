@@ -126,7 +126,6 @@ export default {
   },
   created() {
     this.course_id = this.$route.params.id;
-    this.loadBaseUrl();
     this.getCourseDetails();
   },
   methods: {
@@ -141,14 +140,7 @@ export default {
           level: response.is_listed ? "protected" : "private"
         });
         // get thumbnail
-        response.thumbnail.url = thumbUrl
-          .split(
-            "https://" +
-              this.$Amplify.Storage._config.AWSS3.bucket +
-              ".s3.amazonaws.com"
-          )
-          .join(this.baseUrl);
-
+        response.thumbnail.url = this.$CyberChess.getCloudUrl(thumbUrl);
         // get lectures
         console.log(response.lectures);
         this.course = response;
@@ -158,15 +150,6 @@ export default {
         console.log(err);
         this.$router.go(-1)
       }
-    },
-    loadBaseUrl() {
-      const urls = {
-        dev: "https://d15qyykdkts3kc.cloudfront.net",
-        achalaesh: "https://dd0fq9p45tg50.cloudfront.net"
-      };
-      let bucketName = this.$Amplify.Storage._config.AWSS3.bucket;
-      let env = bucketName.split("-");
-      this.baseUrl = urls[env[env.length - 1]];
     },
     back() {
       this.$router.go(-1);

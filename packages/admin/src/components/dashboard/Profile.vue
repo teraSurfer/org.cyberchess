@@ -119,6 +119,7 @@ import { API } from 'aws-amplify'
               return this.$router.push('/');
             })
             .catch(e => console.log(e));
+            window.webkit.messageHandlers.callbackHandler.postMessage("log_out");//Don't delete, iOS app handler
         }
     },
     created () {
