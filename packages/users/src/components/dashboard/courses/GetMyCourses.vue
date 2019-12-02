@@ -41,7 +41,7 @@ export default {
                 ); 
               
                 let re = response.courses;
-                console.log(re)
+                // console.log(re)
 
 
                 re = re.map(async val => {
@@ -53,9 +53,7 @@ export default {
                 Promise.allSettled(re).then(res => res.forEach(element => {
                   if(element.status === 'fulfilled') this.myCourses.push(element.value);
                 })) 
-                console.log(this.myCourses);
-                console.log("---ACHA--->")
-                console.log(this.$Amplify.Storage);
+                // console.log(this.myCourses);
 
           }catch (err) {
               console.log(err);

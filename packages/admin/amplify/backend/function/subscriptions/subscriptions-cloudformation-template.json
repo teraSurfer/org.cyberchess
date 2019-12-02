@@ -85,7 +85,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-admin-sergio-232015-deployment",
-					"S3Key": "amplify-builds/subscriptions-4f706965533857594c79-build.zip"
+					"S3Key": "amplify-builds/subscriptions-70486145767354325671-build.zip"
 				}
 			}
 		},
