@@ -12,7 +12,7 @@
         v-for="course of allCourses"
         :key="course.course_id"
       >
-        <v-card hover @click.stop.prevent="toCourse()" max-width="300">
+        <v-card hover @click.stop.prevent="toCourse(course.course_id)" max-width="300">
           <v-img
             :src="course.thumbnail.key"
             class="white--text align-end"
@@ -136,11 +136,9 @@ export default {
           console.log(err)
       }
     },
-    toCourse() {
-
-      
-      //this.$router.push('/dashboard/Home')
-     
+    toCourse(course) {
+     if(course)
+      this.$router.push(`/dashboard/courses/${course}`)
     },
     
   }
