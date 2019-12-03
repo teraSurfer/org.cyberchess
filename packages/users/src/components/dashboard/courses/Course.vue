@@ -18,10 +18,10 @@
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn
-              :loading="isSubscribing"
+              :loading="isSubscriptionLoading"
               v-bind:color="isSubscribed()===false ? 'success' : 'warning'"
               @click="toggleSubscribe()">
-                <span class="hidden-sm-and-down" left>{{subscribe_btn.label}}</span>
+                <span class="hidden-sm-and-down" left>{{isSubscribed() ? "Unsubscribe" : "Subscribe"}}</span>
               </v-btn>
             </template>
           </v-tooltip>
@@ -107,16 +107,25 @@ export default {
     course_id: "",
     course: {},
     loading: false,
-    isSubscribing: false,
-    subscribe_btn: {
-        label: 'Subscribe'
-    }
+    isSubscriptionLoading: false,
+    courseSubscription: null
   }),
   created() {
     this.course_id = this.$route.params.id;
     this.getCourseDetails();
+    this.getCourseSubscriptionObject();
   },
   methods: {
+    async getCourseSubscriptionObject() {
+      const response = await this.$Amplify.API.get(
+        "CyberChessApi",
+        `/subscriptions/course_id/${this.course_id}`
+      );
+      const subscriptions = response.filter(function(subscription){return subscription.is_deleted == false})
+      if (Object.keys(subscriptions[0]).length !== 0) {
+        this.courseSubscription = subscriptions[0]
+      }
+    },
     async getCourseDetails() {
       this.loading = true;
       try {
@@ -171,20 +180,21 @@ export default {
       }
     },
     async subscribe() {
+      this.isSubscriptionLoading = true;
       try {
-        this.isSubscribing = true;
-        let subscription = {};
-        subscription.profile_id = await this.$Amplify.Auth.currentSession();
-        subscription.profile_id = subscription.profile_id.idToken.payload.sub;
-        subscription.course_id = this.course_id;
-        subscription.is_deleted = false;
-        const result = await this.$Amplify.API.post("CyberChessApi", "/subscriptions", {
-            body: { ...subscription }
-        });
-        console.log("Subscription succeed:");
-        console.log(result);
-        this.subscription = {};
-        this.isSubscribing = false;
+        let newSubscription = {};
+        newSubscription.profile_id = await this.$Amplify.Auth.currentSession();
+        newSubscription.profile_id = newSubscription.profile_id.idToken.payload.sub;
+        newSubscription.course_id = this.course_id;
+        newSubscription.is_deleted = false;
+        const result = await this.$Amplify.API.post(
+          "CyberChessApi", 
+          "/subscriptions", 
+          {body: { ...newSubscription }}
+        );
+        console.log("🟢Subscription succeed:");
+        console.log(result)
+        this.getCourseSubscriptionObject()
         swal('Success', 'Congratulations! you subscribed to this course.', 'success')
       } catch (err) {
         console.log(err);
@@ -193,6 +203,32 @@ export default {
             "There was an error while subscribing the course. Please try again.",
             "error"
         )
+      }
+      this.isSubscriptionLoading = false;
+    },
+    async unsubscribe() {
+      if (this.courseSubscription) {
+        this.isSubscriptionLoading = true;
+        try {
+          let subscription_id = this.courseSubscription.subscription_id
+          console.log(this.courseSubscription)
+          const result = await this.$Amplify.API.del(
+            "CyberChessApi",
+            `/subscriptions/object/${subscription_id}`
+          );
+          console.log("🟢Unsubscription succeed:");
+          console.log(result)
+          swal('Success', 'You unsubscribed from this course.', 'success')
+          this.courseSubscription = null
+        } catch (err) {
+          console.log(err);
+          swal(
+              "Sorry!",
+              "There was an error while subscribing the course. Please try again.",
+              "error"
+          )
+        }
+        this.isSubscriptionLoading = false;
       }
     },
     toggleSubscribe() {
@@ -203,9 +239,12 @@ export default {
       }
     },
     isSubscribed() {
-      this.subscribe_btn.label = "Subscribe"
-      return false;
-    }
+      if (this.courseSubscription != null) {
+        return true
+      } else {
+        return false
+      }
+    },
   }
 };
 </script>
