@@ -47,19 +47,24 @@ const routes = [
         component: () => import('@/components/dashboard/courses/Course.vue')
       },
       {
+        path: 'HomeDetails/:id',
+        name: 'HomeCourse',
+        component: () => import('@/components/dashboard/HomeDetails/HomeCourse.vue')
+      },
+      {
         path: 'coursesAll',
         name: 'All Courses',
         component: () => import('@/components/dashboard/courses/CoursesAll.vue')
       },
       {
+        path: 'lectures',
+        name: 'Lecture',
+        component: () => import('@/components/dashboard/courses/Lectures.vue')
+      },
+      {
         path: 'live',
         name: 'Live',
         component: () => import('@/components/dashboard/Live.vue')
-      },
-      {
-        path: 'subscription',
-        name: 'Subscription Test',
-        component: () => import('@/components/dashboard/SubscriptionTest.vue')
       }
     ]
   }
