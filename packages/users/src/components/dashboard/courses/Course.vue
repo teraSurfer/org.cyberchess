@@ -22,6 +22,7 @@
               v-bind:color="isSubscribed()===false ? 'success' : 'warning'"
               @click="toggleSubscribe()">
                 <span class="hidden-sm-and-down" left>{{isSubscribed() ? "Unsubscribe" : "Subscribe"}}</span>
+                <v-icon class="hidden-md-and-up">{{isSubscribed() ? "fa-minus" : "fa-plus"}}</v-icon>
               </v-btn>
             </template>
           </v-tooltip>
