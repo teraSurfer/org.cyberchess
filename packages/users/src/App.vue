@@ -39,7 +39,7 @@ export default {
         console.log(currentSession.idToken.payload['cognito:groups']);
         if(currentSession) {
           self.$store.dispatch('auth/LOGGED_IN');
-          self.$router.push('dashboard');
+          self.$router.push('/dashboard');
         } else {
           window.localStorage.clear();
           swal('Sorry', 'You are not authorized', 'error');
