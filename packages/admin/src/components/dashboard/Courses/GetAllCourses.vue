@@ -12,7 +12,7 @@
         v-for="course of allCourses"
         :key="course.course_id"
       >
-        <v-card hover @click.stop.prevent="toCourse(course.course_id)" max-width="300">
+        <v-card hover @click.stop.prevent="toCourse(course.course_id)" class="mx-auto" max-width="270">
           <v-img
             :src="course.thumbnail.key"
             class="white--text align-end"

@@ -148,6 +148,40 @@ app.get(path + '/profile_id/:id'  , function(req, res) {
 });
         
 
+/******************************************************
+ * HTTP Get method for suscription by scan user Id  *
+ ******************************************************/
+app.get(path + '/user_id/:id/course_id/:id2'  , function(req, res) {
+  console.log("here-1-->profileid")
+  console.log(req.params.id)
+  let queryParams = {
+      TableName: tableName,
+      ProjectionExpression: "#CID, #P, #I, #L",  
+      FilterExpression: "#P = :profile_id AND #I = :course_id",
+      ExpressionAttributeNames: {
+        "#CID": "subscription_id",
+        "#P": "profile_id",
+        "#I": "course_id",
+        "#L": "is_deleted",
+      },
+      ExpressionAttributeValues: {
+        ":profile_id": req.params.id,
+        ":course_id": req.params.id2
+      },
+  }
+  dynamodb.scan(queryParams, (err, data) => {
+     if (err) {
+          res.statusCode = 500;
+          res.json({error: 'Could not load items: ' + err});
+     } 
+     else {
+     res.json(data.Items); 
+    }
+  });
+  
+});
+
+
 
 /******************************************************
  * HTTP Get method for list objects by scan courseId  *
