@@ -58,6 +58,10 @@ export default {
 }
 
 .thumbnail:not(.on-hover) {
+  opacity: 1.0;
+ }
+
+.thumbnail.on-hover {
   opacity: 0.6;
  }
 
