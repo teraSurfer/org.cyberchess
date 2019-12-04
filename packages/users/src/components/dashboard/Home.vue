@@ -1,5 +1,5 @@
 <template>
-  <v-container class="justify-center align-start">
+  <v-container class="justify-center align-start mt-10">
     <v-row class="all-courses justify-center align-start">
       <v-card v-if="allCourses.length == 0" flat>
         <v-card-text>
@@ -12,7 +12,7 @@
         v-for="course of allCourses"
         :key="course.course_id"
       >
-        <v-card hover @click.stop.prevent="toCourse(course.course_id)" max-width="300">
+        <v-card hover @click.stop.prevent="toCourse(course.course_id)" class="mx-auto" max-width="270">
           <v-img
             :src="course.thumbnail.key"
             class="white--text align-end"

@@ -1,5 +1,5 @@
 <template>
-    <v-col class="mt-8">
+    <v-col class="mt-1">
         <v-row>
             <get-my-courses />
         </v-row>

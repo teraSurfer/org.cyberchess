@@ -1,10 +1,10 @@
 <template>   
-    <v-container class="mt-8">
+    <v-container class="mt-1">
     <v-skeleton-loader class="fill-height fill-width" v-if="loading" type="card"></v-skeleton-loader>  
         <v-hover v-slot:default="{ hover }">
             <!-- <v-card v-if="!loading" class="mx-auto ma-3" max-width="250">  -->
             
-            <v-card class="mx-auto ma-3" max-width="250">  
+            <v-card class="mx-auto ma-3" max-width="270">  
               <v-card class="thumbnail"   hoverS:elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }" >
                   <v-img  @click.stop.prevent="toCourse(course.course_id)" 
                     :src="course.thumbnail.key"
