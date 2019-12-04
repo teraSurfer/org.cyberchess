@@ -15,6 +15,7 @@ class WebViewController: UIViewController {
     var progressView: UIProgressView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     var urlString: String!
+    @IBOutlet weak var goBackButton: UIButton!
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -34,6 +35,10 @@ class WebViewController: UIViewController {
         webview.navigationDelegate = self
         self.preventZooming()
         loadingIndicator.color = UIColor.gray
+    }
+    
+    @IBAction func goBack(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     func preventZooming() {
@@ -59,8 +64,10 @@ extension WebViewController: WKScriptMessageHandler, WKNavigationDelegate {
             dismiss(animated: true, completion: nil)
         case "dark_mode":
             self.view.backgroundColor = UIColor.init(red: 66/255, green: 66/255, blue: 66/255, alpha: 1)
+            self.goBackButton.tintColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 1)
         case "light_mode":
             self.view.backgroundColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 1)
+            self.goBackButton.tintColor = UIColor.init(red: 66/255, green: 66/255, blue: 66/255, alpha: 1)
         default:
             return
         }
