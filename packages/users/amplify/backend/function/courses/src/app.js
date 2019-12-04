@@ -150,6 +150,48 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, function (req, res) {
 });
 
 /*****************************************
+ * HTTP Get method for getting user course with course id *
+ *****************************************/
+app.get(path + '/user/:id', function (req, res) {
+  console.log(req.params.id)
+  
+  let queryParams = {
+    TableName: tableName,
+    ProjectionExpression: "#N, #T, #V, #L, #CID, #I, #II, #E, #C, #U",
+    FilterExpression: "#CID = :course_id AND #D <> :is_deleted AND #L = :is_listed",
+    ExpressionAttributeNames: {
+      "#I": "instructor",
+      "#II": "instructor_id",
+      "#CID": "course_id",
+      "#L": "is_listed",
+      "#T": "thumbnail",
+      "#V": "lectures",
+      "#N": "course_name",
+      "#E": "excerpt",
+      "#D": "is_deleted",
+      "#C": "created_at",
+      "#U": "updated_at"
+    },
+    ExpressionAttributeValues: {
+      ":course_id": req.params.id,
+      ":is_deleted": true,
+      ":is_listed": true
+    }
+  }
+  console.log("-->");
+  dynamodb.scan(queryParams, (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.json({ error: 'Could not load items: ' + err });
+    } else {
+      console.log(data.Items)
+      res.json(data.Items)
+    }
+  })
+})
+
+
+/*****************************************
  * HTTP Get method for getting courses with instructor id *
  *****************************************/
 app.get(path + '/instructor/:id', function (req, res) {
