@@ -70,20 +70,30 @@ export default {
     baseUrl: "",
     loading: false,
     isSubscriptionLoading: false,
-    courseSubscription: null
+    courseSubscription: null,
+    profile_id: null
   }),
   created() {
     this.course_id = this.$route.params.id;
     this.getCourseDetails();
+    this.getProfileId();
     this.getCourseSubscriptionObject();
   },
   methods: {
+    async getProfileId() {
+      let id = await this.$Amplify.Auth.currentSession()
+      id = id.idToken.payload.sub
+      this.profile_id = id
+    },
     async getCourseSubscriptionObject() {
       const response = await this.$Amplify.API.get(
         "CyberChessApi",
         `/subscriptions/course_id/${this.course_id}`
       );
-      const subscriptions = response.filter(function(subscription){return subscription.is_deleted == false})
+      let profile_id = this.profile_id
+      const subscriptions = response.filter(function(subscription){
+        return subscription.is_deleted == false && subscription.profile_id == profile_id
+      })
       if (Object.keys(subscriptions[0]).length !== 0) {
         this.courseSubscription = subscriptions[0]
       }
@@ -118,8 +128,7 @@ export default {
       this.isSubscriptionLoading = true;
       try {
         let newSubscription = {};
-        newSubscription.profile_id = await this.$Amplify.Auth.currentSession();
-        newSubscription.profile_id = newSubscription.profile_id.idToken.payload.sub;
+        newSubscription.profile_id = this.profile_id
         newSubscription.course_id = this.course_id;
         newSubscription.is_deleted = false;
         const result = await this.$Amplify.API.post(
