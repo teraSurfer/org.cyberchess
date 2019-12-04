@@ -151,6 +151,20 @@ export default {
           console.log(err);
           this.$router.go(-1)
       }
+
+      const ssss = await this.$Amplify.API.get(
+        "CyberChessApi",
+         `/subscriptions/user_id/3a5da7b2-578a-461b-a3f5-21e671590e8b/course_id/7cc20836-70dc-4e50-9b84-f8f792192900`
+      );
+      console.log("-->");
+      console.log(ssss);
+      const ssss1 = await this.$Amplify.API.get(
+        "CyberChessApi",
+        `/subscriptions/user_id/3a5da7b2-578a-461b-a3f5-21e671590e8b/course_id/499bce51-05e5-4489-b7bd-19e0300be9ec`
+      );
+      console.log("-->")
+      console.log(ssss1);
+
     },
     back() {
       this.$router.go(-1);
