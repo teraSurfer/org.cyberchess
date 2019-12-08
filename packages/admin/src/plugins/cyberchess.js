@@ -2,7 +2,8 @@
 const CyberChessPlugin = {
     install: (Vue) => {
         Vue.__cfUrls = {
-            //Don't delete these cloudfront urls: 
+            //Don't delete these cloudfront urls:
+            prod: "d2dpw3eohjys6h.cloudfront.net",
             dev: "https://d15qyykdkts3kc.cloudfront.net",
             achalaesh: "https://dd0fq9p45tg50.cloudfront.net",
             roger: "https://d2gymlwgsq5185.cloudfront.net",
