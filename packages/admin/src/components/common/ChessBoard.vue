@@ -4,15 +4,15 @@
   </div>
 </template>
 <script>
-import Chess from 'chess.js'
-import {Chessground} from 'chessground'
-import {uniques} from './Util.js'
+import Chess from "chess.js";
+import { Chessground } from "chessground";
+import { uniques } from "./Util.js";
 export default {
-  name: 'chessboard',
+  name: "chessboard",
   props: {
     fen: {
       type: String,
-      default: ''
+      default: ""
     },
     free: {
       type: Boolean,
@@ -24,96 +24,99 @@ export default {
     },
     onPromotion: {
       type: Function,
-      default: () => 'q'
+      default: () => "q"
     },
     orientation: {
       type: String,
-      default: 'white'
+      default: "white"
     },
     pgn: {
       type: String,
-      default: ''
+      default: ""
     }
   },
   watch: {
-    fen: function (newFen) {
-      this.fen = newFen
-      this.loadPosition()
+    fen: function(newFen) {
+      this.fen = newFen;
+      this.loadPosition();
     },
-    orientation: function (newOrientation) {
-      this.orientation = newOrientation
-      this.loadPosition()
+    orientation: function(newOrientation) {
+      this.orientation = newOrientation;
+      this.loadPosition();
     },
-    showThreats: function (st) {
-      this.showThreats = st
+    showThreats: function(st) {
+      this.showThreats = st;
       if (this.showThreats) {
-        this.paintThreats()
+        this.paintThreats();
       }
     },
-    pgn: function (pgn) {
-      this.pgn = pgn
-      this.loadPosition()
+    pgn: function(pgn) {
+      console.log('new..');
+      this.pgn = pgn;
+      this.loadPosition();
     }
   },
   methods: {
-    possibleMoves () {
-      const dests = {}
+    possibleMoves() {
+      const dests = {};
       this.game.SQUARES.forEach(s => {
-        const ms = this.game.moves({square: s, verbose: true})
-        if (ms.length) dests[s] = ms.map(m => m.to)
-      })
-      return dests
+        const ms = this.game.moves({ square: s, verbose: true });
+        if (ms.length) dests[s] = ms.map(m => m.to);
+      });
+      return dests;
     },
-    opponentMoves () {
-      let originalPGN = this.game.pgn()
-      let tokens = this.game.fen().split(' ')
-      tokens[1] = tokens[1] === 'w' ? 'b' : 'w'
-      tokens = tokens.join(' ')
-      let valid = this.game.load(tokens)
+    opponentMoves() {
+      let originalPGN = this.game.pgn();
+      let tokens = this.game.fen().split(" ");
+      tokens[1] = tokens[1] === "w" ? "b" : "w";
+      tokens = tokens.join(" ");
+      let valid = this.game.load(tokens);
       if (valid) {
-        let moves = this.game.moves({verbose: true})
-        this.game.load_pgn(originalPGN)
-        return moves
+        let moves = this.game.moves({ verbose: true });
+        this.game.load_pgn(originalPGN);
+        return moves;
       } else {
-        return []
+        return [];
       }
     },
-    toColor () {
-      return (this.game.turn() === 'w') ? 'white' : 'black'
+    toColor() {
+      return this.game.turn() === "w" ? "white" : "black";
     },
-    paintThreats () {
-      let moves = this.game.moves({verbose: true})
-      let threats = []
-      moves.forEach(function (move) {
-        threats.push({orig: move.to, brush: 'yellow'})
-        if (move['captured']) {
-          threats.push({orig: move.from, dest: move.to, brush: 'red'})
+    paintThreats() {
+      let moves = this.game.moves({ verbose: true });
+      let threats = [];
+      moves.forEach(function(move) {
+        threats.push({ orig: move.to, brush: "yellow" });
+        if (move["captured"]) {
+          threats.push({ orig: move.from, dest: move.to, brush: "red" });
         }
-        if (move['san'].includes('+')) {
-          threats.push({orig: move.from, dest: move.to, brush: 'blue'})
+        if (move["san"].includes("+")) {
+          threats.push({ orig: move.from, dest: move.to, brush: "blue" });
         }
-      })
-      this.board.setShapes(threats)
+      });
+      this.board.setShapes(threats);
     },
-    calculatePromotions () {
-      let moves = this.game.moves({verbose: true})
-      this.promotions = []
+    calculatePromotions() {
+      let moves = this.game.moves({ verbose: true });
+      this.promotions = [];
       for (let move of moves) {
         if (move.promotion) {
-          this.promotions.push(move)
+          this.promotions.push(move);
         }
       }
     },
     isPromotion(orig, dest) {
-      let filteredPromotions = this.promotions.filter(move => move.from === orig && move.to === dest)
-      return filteredPromotions.length > 0 // The current movement is a promotion
+      let filteredPromotions = this.promotions.filter(
+        move => move.from === orig && move.to === dest
+      );
+      return filteredPromotions.length > 0; // The current movement is a promotion
     },
-    changeTurn () {
+    changeTurn() {
       return (orig, dest) => {
         if (this.isPromotion(orig, dest)) {
-          this.promoteTo = this.onPromotion()
+          this.promoteTo = this.onPromotion();
         }
-        this.game.move({from: orig, to: dest, promotion: this.promoteTo}) // promote to queen for simplicity
+        this.game.move({ from: orig, to: dest, promotion: this.promoteTo }); // promote to queen for simplicity
         this.board.set({
           fen: this.game.fen(),
           turnColor: this.toColor(),
@@ -121,48 +124,50 @@ export default {
             color: this.toColor(),
             dests: this.possibleMoves()
           }
-        })
-        this.calculatePromotions()
-        this.afterMove()
-      }
+        });
+        this.calculatePromotions();
+        this.afterMove();
+      };
     },
-    afterMove () {
+    afterMove() {
       if (this.showThreats) {
-        this.paintThreats()
+        this.paintThreats();
       }
-      let threats = this.countThreats(this.toColor())
-      threats['history'] = this.game.history()
-      threats['fen'] = this.game.fen()
-      this.$emit('onMove', threats)
+      let threats = this.countThreats(this.toColor());
+      threats["history"] = this.game.history();
+      threats["fen"] = this.game.fen();
+      this.$emit("onMove", threats);
+      this.$emit("pgn", this.game.pgn());
     },
-    countThreats (color) {
-      let threats = {}
-      let captures = 0
-      let checks = 0
-      let moves = this.game.moves({verbose: true})
+    countThreats(color) {
+      let threats = {};
+      let captures = 0;
+      let checks = 0;
+      let moves = this.game.moves({ verbose: true });
       if (color !== this.toColor()) {
-        moves = this.opponentMoves()
+        moves = this.opponentMoves();
       }
       if (moves.length === 0) {
-        return null // It´s an invalid position
+        return null; // It´s an invalid position
       }
-      moves.forEach(function (move) {
-        if (move['captured']) {
-          captures++
+      moves.forEach(function(move) {
+        if (move["captured"]) {
+          captures++;
         }
-        if (move['san'].includes('+')) {
-          checks++
+        if (move["san"].includes("+")) {
+          checks++;
         }
-      })
-      threats[`legal_${color}`] = uniques(moves.map(x => x.from + x.to)).length // promotions count as 4 moves. This remove those duplicates moves.
-      threats[`checks_${color}`] = checks
-      threats[`threat_${color}`] = captures
-      threats[`turn`] = color
-      return threats
+      });
+      threats[`legal_${color}`] = uniques(moves.map(x => x.from + x.to)).length; // promotions count as 4 moves. This remove those duplicates moves.
+      threats[`checks_${color}`] = checks;
+      threats[`threat_${color}`] = captures;
+      threats[`turn`] = color;
+      return threats;
     },
-    loadPosition () { // set a default value for the configuration object itself to allow call to loadPosition()
-      this.game.load(this.fen)
-      this.game.load_pgn(this.pgn, {sloppy: true})
+    loadPosition() {
+      // set a default value for the configuration object itself to allow call to loadPosition()
+      this.game.load(this.fen);
+      this.game.load_pgn(this.pgn, { sloppy: true });
       this.board = Chessground(this.$refs.board, {
         fen: this.game.fen(),
         orientation: this.orientation,
@@ -171,27 +176,28 @@ export default {
           color: this.toColor(),
           free: this.free,
           dests: this.possibleMoves()
-        },
-      })
+        }
+      });
       this.board.set({
         movable: { events: { after: this.changeTurn() } }
-      })
-      console.log(this.board, this.game.turn())
-      this.afterMove()
+      });
+      this.afterMove();
     }
   },
-  mounted () {
-    this.loadPosition()
-    console.log(this.fen);
+  mounted() {
+    window.addEventListener("resize", () => {
+      this.loadPosition();
+    })
+    this.loadPosition();
   },
-  created () {
-    this.game = new Chess()
-    console.log(this.game)
-    this.board = null
-    this.promotions = []
-    this.promoteTo = 'q'
+  created() {
+    this.game = new Chess();
+    console.log(this.game);
+    this.board = null;
+    this.promotions = [];
+    this.promoteTo = "q";
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -210,8 +216,20 @@ export default {
 }
 
 .cg-wrap {
-  width: 512px;
-  height: 512px;
+  width: 90vw;
+  height: 90vw;
+  @media only screen and (min-width: 768px) {
+    width: 396px;
+    height: 396px;
+  }
+  @media only screen and (min-width: 1024px) {
+    width: 412px;
+    height: 412px;
+  }
+  @media only screen and (min-width: 1200px) {
+    width: 512px;
+    height: 512px;
+  }
   position: relative;
   display: block;
 }
@@ -255,33 +273,57 @@ cg-board square {
   pointer-events: none;
 }
 cg-board square.move-dest {
-  background: radial-gradient(rgba(20, 85, 30, 0.5) 22%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
+  background: radial-gradient(
+    rgba(20, 67, 85, 0.5) 22%,
+    #206585 0,
+    rgba(0, 0, 0, 0.3) 0,
+    rgba(0, 0, 0, 0) 0
+  );
   pointer-events: auto;
 }
 cg-board square.premove-dest {
-  background: radial-gradient(rgba(20, 30, 85, 0.5) 22%, #203085 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
+  background: radial-gradient(
+    rgba(20, 30, 85, 0.5) 22%,
+    #203085 0,
+    rgba(0, 0, 0, 0.3) 0,
+    rgba(0, 0, 0, 0) 0
+  );
 }
 cg-board square.oc.move-dest {
-  background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
+  background: radial-gradient(
+    transparent 0%,
+    transparent 80%,
+    rgba(0, 65, 85, 0.3) 80%
+  );
 }
 cg-board square.oc.premove-dest {
-  background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
+  background: radial-gradient(
+    transparent 0%,
+    transparent 80%,
+    rgba(20, 30, 85, 0.2) 80%
+  );
 }
 cg-board square.move-dest:hover {
-  background: rgba(20, 85, 30, 0.3);
+  background: rgba(20, 59, 85, 0.3);
 }
 cg-board square.premove-dest:hover {
   background: rgba(20, 30, 85, 0.2);
 }
 cg-board square.last-move {
   will-change: transform;
-  background-color: rgba(155, 199, 0, 0.41);
+  background-color: rgba(216, 204, 41, 0.5);
 }
 cg-board square.selected {
-  background-color: rgba(20, 85, 30, 0.5);
+  background-color: rgba(24, 134, 185, 0.5);
 }
 cg-board square.check {
-  background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(231, 0, 0, 1) 25%,
+    rgba(169, 0, 0, 0) 89%,
+    rgba(158, 0, 0, 0) 100%
+  );
 }
 cg-board square.current-premove {
   background-color: rgba(20, 30, 85, 0.5);
@@ -309,7 +351,7 @@ cg-board piece.fading {
   opacity: 0.5;
 }
 .cg-wrap square.move-dest:hover {
-  background-color: rgba(20, 85, 30, 0.3);
+  background-color: rgba(20, 50, 85, 0.3);
 }
 .cg-wrap piece.ghost {
   opacity: 0.3;
@@ -368,44 +410,53 @@ cg-board piece.fading {
  * Board
  */
 .wood .cg-wrap {
-  background-image: url('/img/board/wood2.jpg');
-  background-size: 512px 512px;
+  background-image: url("/img/board/wood2.jpg");
+  background-size: 90vw; 
+  @media only screen and (min-width: 767px) {
+    background-size: 396px;
+  }
+  @media only screen and (min-width: 1024px) {
+    background-size: 412px;
+  }
+  @media only screen and (min-width: 1200px) {
+    background-size: 512px;
+  }
 }
 
 .merida .cg-wrap piece.pawn.white {
-  background-image: url('/img/pieces/merida/wP.svg');
+  background-image: url("/img/pieces/merida/wP.svg");
 }
 .merida .cg-wrap piece.bishop.white {
-  background-image: url('/img/pieces/merida/wB.svg');
+  background-image: url("/img/pieces/merida/wB.svg");
 }
 .merida .cg-wrap piece.knight.white {
-  background-image: url('/img/pieces/merida/wN.svg');
+  background-image: url("/img/pieces/merida/wN.svg");
 }
 .merida .cg-wrap piece.rook.white {
-  background-image: url('/img/pieces/merida/wR.svg');
+  background-image: url("/img/pieces/merida/wR.svg");
 }
 .merida .cg-wrap piece.queen.white {
-  background-image: url('/img/pieces/merida/wQ.svg');
+  background-image: url("/img/pieces/merida/wQ.svg");
 }
 .merida .cg-wrap piece.king.white {
-  background-image: url('/img/pieces/merida/wK.svg');
+  background-image: url("/img/pieces/merida/wK.svg");
 }
 .merida .cg-wrap piece.pawn.black {
-  background-image: url('/img/pieces/merida/bP.svg');
+  background-image: url("/img/pieces/merida/bP.svg");
 }
 .merida .cg-wrap piece.bishop.black {
-  background-image: url('/img/pieces/merida/bB.svg');
+  background-image: url("/img/pieces/merida/bB.svg");
 }
 .merida .cg-wrap piece.knight.black {
-  background-image: url('/img/pieces/merida/bN.svg');
+  background-image: url("/img/pieces/merida/bN.svg");
 }
 .merida .cg-wrap piece.rook.black {
-  background-image: url('/img/pieces/merida/bR.svg');
+  background-image: url("/img/pieces/merida/bR.svg");
 }
 .merida .cg-wrap piece.queen.black {
-  background-image: url('/img/pieces/merida/bQ.svg');
+  background-image: url("/img/pieces/merida/bQ.svg");
 }
 .merida .cg-wrap piece.king.black {
-  background-image: url('/img/pieces/merida/bK.svg');
+  background-image: url("/img/pieces/merida/bK.svg");
 }
 </style>

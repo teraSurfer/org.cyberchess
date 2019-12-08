@@ -4,5 +4,8 @@ export const mutations = {
     },
     LOGGED_OUT(state) {
         state.loggedIn = false;
+    },
+    TWILIO_TOKEN(state, payload) {
+        state.twilio_token = payload;
     }
 }

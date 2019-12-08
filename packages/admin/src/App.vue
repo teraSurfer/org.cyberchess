@@ -33,7 +33,7 @@ export default {
     let self = this;
     // let v= await this.$Amplify.Auth.currentCredentials();
     // console.log(v.data.IdentityId)
-    console.log(await this.$Amplify.API.get('CyberChessApi', '/courses?limit=1'));
+    // console.log(await this.$Amplify.API.get('CyberChessApi', '/courses?limit=1'));
     AmplifyEventBus.$on('authState', async function(authState) {
       if(authState === 'signedIn') {
         const currentSession = await self.$Amplify.Auth.currentSession();
