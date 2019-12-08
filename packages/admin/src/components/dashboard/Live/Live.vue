@@ -1,7 +1,7 @@
 <template>
 <v-container class="mt-8">
     <v-card>
-    <game />
+        <game />
     </v-card>
     </v-container>
 </template>
