@@ -1,6 +1,10 @@
 # Cyberchess.org
 [![CircleCI](https://circleci.com/gh/teraSurfer/cyberchess.org/tree/master.svg?style=svg)](https://circleci.com/gh/teraSurfer/cyberchess.org/tree/master)
 
+* University Name: http://www.sjsu.edu/
+* Course: [Cloud Technologies](http://info.sjsu.edu/web-dbgen/catalog/courses/CMPE281.html/)
+* Professor: [Sanjay Garje](https://www.linkedin.com/in/sanjaygarje/)
+
 ## Table of contents
 1. [Installation Guide](https://github.com/teraSurfer/cyberchess.org#installation-guide)
 2. [FAQ](https://github.com/teraSurfer/cyberchess.org#faq)
