@@ -61,7 +61,7 @@ export default {
         this.$CyberChess.getChatClient().on("channelJoined", channel => {
           if (channel) this.$CyberChess.channel = channel;
           console.log("listening...");
-          this.$emit("channel-ready");
+          // this.$emit("channel-ready");
         });
       } else {
         console.log(this.$CyberChess.getChatClient());
@@ -84,6 +84,10 @@ export default {
         });
         this.$CyberChess.getChatClient().on("channelJoined", channel => {
           if (channel) this.$CyberChess.channel = channel;
+        });
+        this.$CyberChess.on("channelInvited", function(channel) {
+          console.log("Invited to channel " + channel.friendlyName);
+          channel.join();
         });
         console.log(this.$CyberChess.channel);
       }

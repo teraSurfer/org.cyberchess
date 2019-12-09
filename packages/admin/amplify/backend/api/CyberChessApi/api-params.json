@@ -1,44 +1,6 @@
 {
     "paths": [
         {
-            "name": "/courses",
-            "lambdaFunction": "courses",
-            "privacy": {
-                "userPoolGroups": {
-                    "Admin": [
-                        "/POST",
-                        "/GET",
-                        "/PUT",
-                        "/PATCH",
-                        "/DELETE"
-                    ],
-                    "Users": [
-                        "/GET"
-                    ]
-                }
-            }
-        },
-        {
-            "name": "/subscriptions",
-            "lambdaFunction": "subscriptions",
-            "privacy": {
-                "userPoolGroups": {
-                    "Admin": [
-                        "/GET",
-                        "/PUT",
-                        "/PATCH"
-                    ],
-                    "Users": [
-                        "/POST",
-                        "/GET",
-                        "/PUT",
-                        "/PATCH",
-                        "/DELETE"
-                    ]
-                }
-            }
-        },
-        {
             "name": "/profiles",
             "lambdaFunction": "userProfile",
             "privacy": {
@@ -69,6 +31,46 @@
                     ]
                 }
             }
+        },
+        {
+            "name": "/courses",
+            "lambdaFunction": "courses",
+            "privacy": {
+                "userPoolGroups": {
+                    "Admin": [
+                        "/POST",
+                        "/GET",
+                        "/PUT",
+                        "/PATCH",
+                        "/DELETE"
+                    ],
+                    "Users": [
+                        "/GET"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "/subscriptions",
+            "lambdaFunction": "subscriptions",
+            "privacy": {
+                "userPoolGroups": {
+                    "Admin": [
+                        "/POST",
+                        "/GET",
+                        "/PUT",
+                        "/PATCH",
+                        "/DELETE"
+                    ],
+                    "Users": [
+                        "/POST",
+                        "/GET",
+                        "/PUT",
+                        "/PATCH",
+                        "/DELETE"
+                    ]
+                }
+            }
         }
     ],
     "resourceName": "CyberChessApi",
@@ -76,16 +78,16 @@
     "authResourceName": "CyberchessAuth",
     "functionArns": [
         {
-            "lambdaFunction": "courses"
-        },
-        {
-            "lambdaFunction": "subscriptions"
-        },
-        {
             "lambdaFunction": "userProfile"
         },
         {
             "lambdaFunction": "rooms"
+        },
+        {
+            "lambdaFunction": "courses"
+        },
+        {
+            "lambdaFunction": "subscriptions"
         }
     ],
     "privacy": {
@@ -97,7 +99,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "courses",
+            "resourceName": "userProfile",
             "attributes": [
                 "Name",
                 "Arn"
@@ -126,28 +128,28 @@
         },
         {
             "category": "function",
-            "resourceName": "subscriptions",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
-            "resourceName": "userProfile",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
             "resourceName": "rooms",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "courses",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "subscriptions",
             "attributes": [
                 "Name",
                 "Arn"
             ]
         }
     ],
-    "uuid": "c0fca74c"
+    "uuid": "0f280da3"
 }

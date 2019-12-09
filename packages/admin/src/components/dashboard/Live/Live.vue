@@ -91,6 +91,7 @@ export default {
         this.$CyberChess.getChatClient().on("channelJoined", channel => {
           if (channel) this.$CyberChess.channel = channel;
         });
+        
         console.log(this.$CyberChess.channel);
       }
       let flag = false;
@@ -118,7 +119,7 @@ export default {
           this.messages = mg;
           this.nPgn = game[game.length - 1];
           console.log("listening...");
-          this.$emit("channel-ready");
+          // this.$emit("channel-ready");
           break;
         }
       }
@@ -143,9 +144,9 @@ export default {
   mounted() {
     this.$on("channel-ready", () => {
       this.$CyberChess.channel.on("messageAdded", message => {
-        console.log(message)
+        console.log(message);
         if (JSON.parse(message.body).type === "text") {
-          console.log("pushing message")
+          console.log("pushing message");
           this.messages.push({
             author: message.author,
             body: message.body,

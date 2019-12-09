@@ -159,7 +159,7 @@
             "dependsOn": [
                 {
                     "category": "function",
-                    "resourceName": "courses",
+                    "resourceName": "userProfile",
                     "attributes": [
                         "Name",
                         "Arn"
@@ -188,23 +188,23 @@
                 },
                 {
                     "category": "function",
-                    "resourceName": "subscriptions",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                },
-                {
-                    "category": "function",
-                    "resourceName": "userProfile",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                },
-                {
-                    "category": "function",
                     "resourceName": "rooms",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "courses",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "subscriptions",
                     "attributes": [
                         "Name",
                         "Arn"
