@@ -18,7 +18,8 @@
                 "AdminQueriesacd20eba": {},
                 "courses": {},
                 "subscriptions": {},
-                "userProfile": {}
+                "userProfile": {},
+                "rooms": {}
             },
             "auth": {
                 "CyberchessAuth": {}
