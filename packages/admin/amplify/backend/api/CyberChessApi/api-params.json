@@ -91,8 +91,8 @@
     "privacy": {
         "auth": 0,
         "unauth": 0,
-        "authRoleName": "amplify-admin-achalaesh-212944-authRole",
-        "unAuthRoleName": "amplify-admin-achalaesh-212944-unauthRole"
+        "authRoleName": "amplify-admin-dev-180336-authRole",
+        "unAuthRoleName": "amplify-admin-dev-180336-unauthRole"
     },
     "dependsOn": [
         {
@@ -149,5 +149,5 @@
             ]
         }
     ],
-    "uuid": "2d6d206b"
+    "uuid": "cbc08d82"
 }
