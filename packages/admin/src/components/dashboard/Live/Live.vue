@@ -3,9 +3,8 @@
     <v-row class="pa-0 mx-auto scx">
       <v-col class="pa-0" col sm="12" md="6" lg="6">
         <chess-board @pgn="($evt) => handleMove($evt)" :pgn="nPgn" />
-        <p class="mt-4">
-          Room Name: {{$route.query.room}}
-        </p>
+        <p class="mt-4">Room Name: {{$route.query.room}}</p>
+        <v-btn @click="invite">Invite</v-btn>
       </v-col>
       <v-col class="pa-0 smdxc" col sm="12" md="6" lg="6">
         <chat :messages="messages" :notation="pgn" />
@@ -18,6 +17,7 @@
 import ChessBoard from "@/components/common/ChessBoard.vue";
 import Chat from "@/components/common/Chat.vue";
 const twilioChat = require("twilio-chat");
+import swal from "sweetalert";
 export default {
   components: {
     ChessBoard,
@@ -31,11 +31,19 @@ export default {
   methods: {
     handleMove(event) {
       this.pgn = event;
-      if(event !== '') {
+      if (event !== "") {
         this.$CyberChess.channel.sendMessage(
           JSON.stringify({ type: "game", message: event })
         );
       }
+    },
+    async invite() {
+      let userId = await swal({
+        title: "Invite an user",
+        content: "input"
+      });
+      let r = await this.$CyberChess.channel.invite(userId);
+      console.log(r);
     }
   },
   async created() {
@@ -60,17 +68,7 @@ export default {
         this.$CyberChess.setChatClient(client);
         this.$CyberChess.getChatClient().on("channelJoined", channel => {
           if (channel) this.$CyberChess.channel = channel;
-          this.$CyberChess.channel.on("messageAdded", message => {
-            if(JSON.stringify(message.body).type === 'text') {
-            this.messages.push({
-              author: message.author,
-              body: message.body,
-              timestamp: message.timestamp
-            });
-            } else if(JSON.stringify(message.body).type === 'game') {
-              this.nPgn = JSON.stringify(message.body.message);
-            }
-          });
+          this.$emit("channel-ready");
         });
       } else {
         // There is already a chat client to check if its token is expired.
@@ -92,17 +90,6 @@ export default {
         });
         this.$CyberChess.getChatClient().on("channelJoined", channel => {
           if (channel) this.$CyberChess.channel = channel;
-          this.$CyberChess.channel.on("messageAdded", message => {
-            if(JSON.stringify(message.body).type === 'text') {
-            this.messages.push({
-              author: message.author,
-              body: message.body,
-              timestamp: message.timestamp
-            });
-            } else if(JSON.stringify(message.body).type === 'game') {
-              this.nPgn = JSON.stringify(message.body).message;
-            }
-          });
         });
         console.log(this.$CyberChess.channel);
       }
@@ -120,16 +107,18 @@ export default {
           const resp = await this.$CyberChess.channel.getMessages();
           let game = [];
           let mg = resp.items.filter(msg => {
-            if(JSON.parse(msg.body).type === 'text') {
+            if (JSON.parse(msg.body).type === "text") {
               return msg;
             }
-            if(JSON.parse(msg.body).type === 'game') {
-              console.log(msg.body)
+            if (JSON.parse(msg.body).type === "game") {
+              console.log(msg.body);
               game.push(JSON.parse(msg.body).message);
             }
-          })
-          this.messages = mg
-          this.nPgn = game[game.length-1];
+          });
+          this.messages = mg;
+          this.nPgn = game[game.length - 1];
+          console.log("listening...");
+          this.$emit("channel-ready");
           break;
         }
       }
@@ -151,7 +140,23 @@ export default {
       console.log(err);
     }
   },
-  mounted() {}
+  mounted() {
+    this.$on("channel-ready", () => {
+      this.$CyberChess.channel.on("messageAdded", message => {
+        console.log(message)
+        if (JSON.parse(message.body).type === "text") {
+          console.log("pushing message")
+          this.messages.push({
+            author: message.author,
+            body: message.body,
+            timestamp: message.timestamp
+          });
+        } else if (JSON.parse(message.body).type === "game") {
+          this.nPgn = JSON.parse(message.body).message;
+        }
+      });
+    });
+  }
 };
 </script>
 

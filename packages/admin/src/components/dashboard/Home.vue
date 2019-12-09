@@ -27,7 +27,7 @@ export default {
         content: "input"
       });
       this.$router.push(
-        `/dashboard/live?room=${encodeURIComponent(name)}&create=true`
+        `/dashboard/live?room=${encodeURIComponent(name)}`
       );
     }
   }

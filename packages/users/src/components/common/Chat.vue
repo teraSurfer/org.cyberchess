@@ -105,8 +105,8 @@ export default {
   background-color: rgb(255, 255, 255);
   border: 0.5px black;
   padding: 3px;
-  color: black;
   border-radius: 10px 10px 10px 10px;
+  color: black;
   word-wrap: break-word;
   width: 10rem;
     @media only screen and(min-width: 375px) {
