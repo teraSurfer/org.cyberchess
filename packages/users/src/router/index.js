@@ -33,23 +33,38 @@ const routes = [
     children: [ 
       {
         path: 'home',
-        name: 'home',
+        name: 'Home',
         component: () => import('@/components/dashboard/Home.vue')
       },
       {
         path: 'courses',
-        name: 'Couses',
-        component: () => import('@/components/dashboard/Courses.vue')
+        name: 'My Courses',
+        component: () => import('@/components/dashboard/courses/Courses.vue')
+      },
+      {
+        path: 'courses/:id',
+        name: 'Course',
+        component: () => import('@/components/dashboard/courses/Course.vue')
+      },
+      {
+        path: 'HomeDetails/:id',
+        name: 'HomeCourse',
+        component: () => import('@/components/dashboard/HomeDetails/HomeCourse.vue')
       },
       {
         path: 'coursesAll',
-        name: 'Couses',
-        component: () => import('@/components/dashboard/CoursesAll.vue')
+        name: 'All Courses',
+        component: () => import('@/components/dashboard/courses/CoursesAll.vue')
+      },
+      {
+        path: 'lectures',
+        name: 'Lecture',
+        component: () => import('@/components/dashboard/courses/Lectures.vue')
       },
       {
         path: 'live',
-        name: 'live',
-        component: () => import('@/components/dashboard/Courses.vue')
+        name: 'Live',
+        component: () => import('@/components/dashboard/Live.vue')
       }
     ]
   }

@@ -5,11 +5,7 @@
             <v-icon>fa-home</v-icon>
         </v-btn>
         <v-btn to="/dashboard/courses" value="Courses">
-            <span>My Courses</span>
-            <v-icon>fa-book-open</v-icon>
-        </v-btn>
-        <v-btn to="/dashboard/coursesall" value="CoursesAll">
-            <span>All Courses</span>
+            <span>Courses</span>
             <v-icon>fa-book-open</v-icon>
         </v-btn>
         <v-btn to="/dashboard/live" value="Live">

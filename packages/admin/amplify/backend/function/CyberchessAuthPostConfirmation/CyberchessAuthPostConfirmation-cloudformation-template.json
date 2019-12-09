@@ -115,7 +115,11 @@
 				"Runtime": "nodejs8.10",
 				"Timeout": "25",
 				"Code": {
+<<<<<<< HEAD
 					"S3Bucket": "amplify-admin-achalaesh-212944-deployment",
+=======
+					"S3Bucket": "amplify-admin-prod-205413-deployment",
+>>>>>>> master
 					"S3Key": "amplify-builds/CyberchessAuthPostConfirmation-4f6a5a65472b3931566c-build.zip"
 				}
 			}

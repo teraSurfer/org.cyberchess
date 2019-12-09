@@ -70,8 +70,13 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
+<<<<<<< HEAD
 					"S3Bucket": "amplify-admin-achalaesh-212944-deployment",
 					"S3Key": "amplify-builds/courses-61663248575969544765-build.zip"
+=======
+					"S3Bucket": "amplify-admin-prod-205413-deployment",
+					"S3Key": "amplify-builds/courses-6332554a447831483243-build.zip"
+>>>>>>> master
 				}
 			}
 		},
