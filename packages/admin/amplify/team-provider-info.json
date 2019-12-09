@@ -51,7 +51,8 @@
                 "Profiles": {},
                 "CyberchessAuth": {},
                 "Courses": {},
-                "userProfile": {}
+                "userProfile": {},
+                "rooms": {}
             }
         }
     },
