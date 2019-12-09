@@ -50,7 +50,8 @@
                 "subscriptions": {},
                 "Profiles": {},
                 "CyberchessAuth": {},
-                "Courses": {}
+                "Courses": {},
+                "userProfile": {}
             }
         }
     },
@@ -139,7 +140,9 @@
                 "subscriptions": {},
                 "Profiles": {},
                 "CyberchessAuth": {},
-                "Courses": {}
+                "Courses": {},
+                "userProfile": {},
+                "rooms": {}
             }
         }
     },

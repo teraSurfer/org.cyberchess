@@ -32,7 +32,8 @@
     "vue-video-player": "^5.0.2",
     "vuetify": "^2.1.0",
     "vuex": "^3.0.1",
-    "vuex-persist": "^2.2.0"
+    "vuex-persist": "^2.2.0",
+    "twilio-chat": "^3.3.3"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",

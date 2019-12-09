@@ -9,7 +9,8 @@ const CyberChessPlugin = {
             roger: "https://d2gymlwgsq5185.cloudfront.net",
             sergio: "https://d16wuzbj2setx8.cloudfront.net",
             jhrenv: "https://d217hs3emk80ln.cloudfront.net"
-        }
+        },
+        Vue.___twil = null,
         Vue.prototype.$CyberChess = {
             getCloudUrl: (s3Url) => {
                 let bucketName = Vue.prototype.$Amplify.Storage._config.AWSS3.bucket;
@@ -21,6 +22,13 @@ const CyberChessPlugin = {
                   )
                 .join(Vue.__cfUrls[env[env.length - 1]]);
             },
+            setChatClient: (chatClient) =>{
+                Vue.___twil = chatClient;
+            },
+            getChatClient: () => {
+                return Vue.___twil;
+            },
+            channel: {},
         }
     },
 };

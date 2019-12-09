@@ -18,7 +18,8 @@
                 "AdminQueriesacd20eba": {},
                 "courses": {},
                 "subscriptions": {},
-                "userProfile": {}
+                "userProfile": {},
+                "rooms": {}
             },
             "auth": {
                 "CyberchessAuth": {}
@@ -50,7 +51,8 @@
                 "subscriptions": {},
                 "Profiles": {},
                 "CyberchessAuth": {},
-                "Courses": {}
+                "Courses": {},
+                "userProfile": {}
             }
         }
     },
@@ -139,7 +141,9 @@
                 "subscriptions": {},
                 "Profiles": {},
                 "CyberchessAuth": {},
-                "Courses": {}
+                "Courses": {},
+                "userProfile": {},
+                "rooms": {}
             }
         }
     },
