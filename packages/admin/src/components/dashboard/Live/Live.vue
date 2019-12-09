@@ -172,7 +172,7 @@ export default {
   overflow-y: scroll;
   overflow-x: hidden;
   @media only screen and (min-width: 1200px) {
-    height: 65vh;
+    height: 75vh;
   }
 }
 </style>

@@ -10,7 +10,9 @@
         <h4 class="mb-0">Admin Dashboard - {{getTitle}}</h4>
         <v-spacer />
       </v-toolbar>
+      <v-container class="mt-8" fluid>
       <router-view />
+      </v-container>
     </v-col>
     <bottom-nav class="fixed-bottom" />
   </v-container>
