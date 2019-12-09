@@ -55,6 +55,20 @@
                     ]
                 }
             }
+        },
+        {
+            "name": "/rooms",
+            "lambdaFunction": "rooms",
+            "privacy": {
+                "userPoolGroups": {
+                    "Admin": [
+                        "/POST"
+                    ],
+                    "Users": [
+                        "/POST"
+                    ]
+                }
+            }
         }
     ],
     "resourceName": "CyberChessApi",
@@ -69,6 +83,9 @@
         },
         {
             "lambdaFunction": "userProfile"
+        },
+        {
+            "lambdaFunction": "rooms"
         }
     ],
     "privacy": {
@@ -118,6 +135,14 @@
         {
             "category": "function",
             "resourceName": "userProfile",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "rooms",
             "attributes": [
                 "Name",
                 "Arn"

@@ -4,6 +4,7 @@ import {mutations} from './mutations';
 
 const state = {
     loggedIn: false,
+    twilio_token: ''
 }
 
 const namespaced = true;
