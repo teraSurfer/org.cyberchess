@@ -5,6 +5,15 @@
 * Course: [Cloud Technologies](http://info.sjsu.edu/web-dbgen/catalog/courses/CMPE281.html/)
 * Professor: [Sanjay Garje](https://www.linkedin.com/in/sanjaygarje/)
 
+# Links
+1. [Admin Portal](https://admin.cyberchess.org)
+2. [User Portal](https://app.cyberchess.org)
+3. [Youtube url](https://youtu.be/7dxwL7LuFFI)
+4. [Achalaesh Lanka LinkedIn](https://linkedin.com/in/achalaesh-lanka)
+5. [Roger Navarro LinkedIn](https://www.linkedin.com/in/roger-navarro-claros)
+6. [Sergio Aguilar Camarena LinkedIn](https://linkedin.com/in/sergio-aguilar-20b25148)
+7. [Jyothi Hassan Ramesh](https://www.linkedin.com/in/jyothi-h-r-b6ab079b)
+
 ## Table of contents
 1. [Installation Guide](https://github.com/teraSurfer/cyberchess.org#installation-guide)
 2. [FAQ](https://github.com/teraSurfer/cyberchess.org#faq)
