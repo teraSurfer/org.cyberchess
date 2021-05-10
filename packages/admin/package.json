@@ -20,7 +20,7 @@
     "chessground": "^7.6.10",
     "core-js": "^3.3.2",
     "fibers": "^4.0.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "register-service-worker": "^1.6.2",
     "sweetalert": "^2.1.2",
     "twilio-chat": "^3.3.3",
